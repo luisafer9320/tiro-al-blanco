@@ -46,7 +46,8 @@ CSS3 (animaciones, responsive)
 JavaScript (Vanilla)
 Fetch API (consumo de APIs)
 LocalStorage
-Figma (diseño UI/UX)
+Figma ([diseño UI/UX](https://www.figma.com/proto/VnGMiJgMITOboXdDcvjNWA/Tiro-al-Blanco?node-id=0-1&t=QBiD9y0QOKEtWF8o-1))
+stich- https://stitch.withgoogle.com/
 Git & GitFlow
 
 🧱 Estructura del Proyecto
