@@ -7,19 +7,48 @@
   overflow: hidden; /* Importante: oculta patos que salen de la carpa */
 }
 
-/* Toldo de feria */
-.carnival-awning {
-  display: flex;
-  position: absolute;
-  top: 0;
+.toldo {
   width: 100%;
-  z-index: 20;
+  height: 140px;
+  position: relative;
+  overflow: hidden;
+  border-radius: 20px 20px 0 0;
+}
+
+/* Rayas */
+.rayas {
+  width: 100%;
+  height: 100%;
+  background: repeating-linear-gradient(
+    90deg,
+    #c62828 0px,
+    #c62828 80px,
+    #ffffff 80px,
+    #ffffff 160px
+  );
+}
+
+/* Ondas redondas abajo */
+.toldo::after {
+  content: "";
+  position: absolute;
+  bottom: -35px;
+  left: 0;
+  width: 100%;
+  height: 70px;
+
+  background:
+    radial-gradient(circle at 40px 0, #c62828 40px, transparent 41px),
+    radial-gradient(circle at 120px 0, #ffffff 40px, transparent 41px);
+
+  background-size: 160px 70px;
+  background-repeat: repeat-x;
 }
 
 .awning-segment {
   flex: 1;
   height: 35px;
-  border-bottom-left-radius: 50%;
+  border-bottom-left-radius: 50%; 
   border-bottom-right-radius: 50%;
 }
 .red { background: var(--primary-red); }
