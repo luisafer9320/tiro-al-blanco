@@ -1,10 +1,63 @@
 .game-area {
-  position: relative;
   background: radial-gradient(circle, #1a1c2c 0%, #05050a 100%);
-  border-radius: 35px;
-  height: 420px;
-  border: 2px solid #23263a;
-  overflow: hidden; /* Importante: oculta patos que salen de la carpa */
+  border-radius: 40px;
+  height: 600px; /* Puedes subirlo a 700px o 800px si quieres más espacio */
+  margin: 0 15px;
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--glass);
+  display: flex;
+  flex-direction: column; /* Alinea el toldo arriba y el contenido abajo */
+}
+
+/* EL NUEVO TOLDO REALISTA (Único que queda) */
+.toldo {
+  width: 100%;
+  height: 120px; 
+  position: relative;
+  overflow: hidden; 
+  border-radius: 30px 30px 0 0;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+  z-index: 10;
+}
+
+.rayas {
+  width: 100%;
+  height: 100%;
+  background: repeating-linear-gradient(
+    90deg,
+    #b02121 0px,      
+    #e63946 40px,     
+    #b02121 80px,     
+    #d1d1d1 80px,     
+    #ffffff 120px,    
+    #d1d1d1 160px     
+  );
+}
+
+.toldo::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 40px;
+  background-image: 
+    radial-gradient(circle at 40px 0, #b02121 40px, transparent 41px),
+    radial-gradient(circle at 120px 0, #d1d1d1 40px, transparent 41px);
+  background-size: 160px 40px;
+  background-repeat: repeat-x;
+  filter: drop-shadow(0 5px 5px rgba(0,0,0,0.5));
+}
+
+/* CONTROLES DENTRO DEL JUEGO */
+.game-controls {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 15px;
+  font-weight: bold;
+  z-index: 11; /* Para que Score y Time queden sobre el fondo */
 }
 
 /* Toldo de feria */
@@ -22,8 +75,12 @@
   border-bottom-left-radius: 50%;
   border-bottom-right-radius: 50%;
 }
-.red { background: var(--primary-red); }
-.white { background: #f0f0f0; }
+.red {
+  background: var(--primary-red);
+}
+.white {
+  background: #f0f0f0;
+}
 
 /* Contenedor de patos */
 .duck-gallery-container {
@@ -51,29 +108,41 @@
 
 .duck-target img {
   width: 55px;
-  filter: drop-shadow(0 4px 6px rgba(0,0,0,0.3));
+  filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.3));
 }
 
 /* ANIMACIONES: Los patos cruzan de lado a lado */
 @keyframes moveRight {
-  from { left: -80px; }
-  to { left: 100%; }
+  from {
+    left: -80px;
+  }
+  to {
+    left: 100%;
+  }
 }
 
 @keyframes moveLeft {
-  from { left: 100%; }
-  to { left: -80px; }
+  from {
+    left: 100%;
+  }
+  to {
+    left: -80px;
+  }
 }
 
 /* Aplicación de movimiento (puedes cambiarlas con JS) */
-.animate-right { animation: moveRight 5s linear infinite; }
-.animate-left { animation: moveLeft 4s linear infinite; }
+.animate-right {
+  animation: moveRight 5s linear infinite;
+}
+.animate-left {
+  animation: moveLeft 4s linear infinite;
+}
 
 /* Botón PLAY (Overlay) */
 .play-button-container {
   position: absolute;
   inset: 0;
-  background: rgba(0,0,0,0.5);
+  background: rgba(0, 0, 0, 0.5);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -147,10 +216,17 @@
     width: 100%;
     height: 30px;
     /* Este patrón crea los semicírculos */
-    background-image: radial-gradient(circle at 50% 0%, var(--primary-red) 50%, transparent 55%),
-                      radial-gradient(circle at 50% 0%, #f0f0f0 50%, transparent 55%);
+    background-image:
+      radial-gradient(
+        circle at 50% 0%,
+        var(--primary-red) 50%,
+        transparent 55%
+      ),
+      radial-gradient(circle at 50% 0%, #f0f0f0 50%, transparent 55%);
     background-size: 100px 30px; /* Debe coincidir con el ancho de las franjas arriba */
-    background-position: 0px 0, 50px 0;
+    background-position:
+      0px 0,
+      50px 0;
     background-repeat: repeat-x;
   }
 }
