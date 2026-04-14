@@ -1,44 +1,56 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Carnival Ducks</title>
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/game.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Carnival Ducks | Tiro al Blanco</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/game.css" />
 </head>
 <body>
 
     <div class="dashboard-container">
         <header class="app-header">
             <div class="weather-info">
-                <i class="fas fa-cloud-rain"></i>
+                <i class="fas fa-cloud-rain" aria-hidden="true"></i>
                 <div class="weather-details">
                     <span>24°C Sunny</span>
                 </div>
             </div>
+
             <h1 class="app-title">CARNIVAL<br>DUCKS</h1>
+
             <div class="location-top">
+                <i class="fas fa-map-marker-alt" aria-hidden="true"></i>
                 <span>MADRID, ES</span>
             </div>
         </header>
 
-         <div class="toldo">
-  <div class="toldo-rayas"></div>
-</div>
+        <main class="game-area">
+            <div class="toldo" aria-hidden="true">
+                <div class="rayas"></div>
+            </div>
 
             <div class="game-controls">
-                <div class="control-item">SCORE: <span class="value">240</span></div>
-                <button class="control-item btn-reset">REINICIAR</button>
-                <div class="control-item">TIME: <span class="value time-value">00:45</span></div>
+                <div class="control-item">
+                    SCORE: <span class="value" id="score">240</span>
+                </div>
+                <button class="btn-reset" id="btnReset">REINICIAR</button>
+                <div class="control-item">
+                    TIME: <span class="value time-value" id="timer">00:45</span>
+                </div>
             </div>
 
             <div class="play-button-container">
-                <button class="play-main-btn">
+                <button class="play-main-btn" id="btnPlay" aria-label="Jugar">
                     <span>PLAY</span>
                 </button>
             </div>
+            
+            <div id="gameCanvas"></div>
         </main>
 
         <section class="info-section">
@@ -48,6 +60,7 @@
                     <h3>Madrid</h3>
                     <span class="card-sub-info">Spain District</span>
                 </article>
+
                 <article class="card">
                     <span class="card-label">DAILY WINNER</span>
                     <h3>@DuckKing99</h3>
@@ -58,19 +71,22 @@
 
         <footer>
             <nav class="footer-nav">
-                <button type="button">INICIO</button>
-                <button type="button">Idiomas</button>
-                <button type="button">Juegos</button>
-                <button type="button">PERFIL</button>
+                <button type="button" aria-label="Inicio"><i class="fas fa-home"></i><br>INICIO</button>
+                <button type="button" aria-label="Idiomas"><i class="fas fa-globe"></i><br>IDIOMAS</button>
+                <button type="button" aria-label="Juegos"><i class="fas fa-gamepad"></i><br>JUEGOS</button>
+                <button type="button" aria-label="Perfil"><i class="fas fa-user"></i><br>PERFIL</button>
             </nav>
             <div class="Navfooter">
-                <a href="#">Condiciones de uso</a> | 
-                <a href="#">Política de privacidad</a> | 
-                <a href="#">Contacto</a>
-                <p>&copy; 2026 Tiro al Blanco. Todos los derechos reservados.</p>
+                <div class="legal-links">
+                    <a href="#">Condiciones de uso</a>
+                    <a href="#">Política de privacidad</a>
+                    <a href="#">Contacto</a>
+                </div>
+                <p>&copy; 2026 Tiro al Blanco • <strong>FemCoders</strong></p>
             </div>
         </footer>
     </div>
 
+    <script src="js/main.js" type="module"></script>
 </body>
 </html>
