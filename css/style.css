@@ -1,20 +1,15 @@
-/* 1. VARIABLES & RESET */
+/* 1. VARIABLES Y RESET */
 :root {
-  /* Colors */
-  --bg-dark: #0a0b14;
-  --bg-card: #151723;
-  --primary-red: #e63946;
-  --primary-dark: #b02121;
-  --primary-hover: #ff3d3d;
-  --text-white: #ffffff;
-  --text-gray: #8e92a4;
-  --gold: #ffcc00;
-  --glass: rgba(255, 255, 255, 0.05);
-  --footer-dark: #080325;
-  --footer-accent: #322a44;
-
-  /* Constants */
-  --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --bg-dark: #0C0D14;
+    --bg-card: #151723;
+    --primary-red: #e63946;
+    --primary-hover: #ff3d3d;
+    --text-white: #ffffff;
+    --text-gray: #8e92a4;
+    --gold: #ffcc00;
+    --glass: rgba(255, 255, 255, 0.05);
+    --footer-dark: #0C0D14;
+    --footer-accent: #151723;
 }
 
 * {
