@@ -1,0 +1,156 @@
+.game-area {
+  position: relative;
+  background: radial-gradient(circle, #1a1c2c 0%, #05050a 100%);
+  border-radius: 35px;
+  height: 420px;
+  border: 2px solid #23263a;
+  overflow: hidden; /* Importante: oculta patos que salen de la carpa */
+}
+
+/* Toldo de feria */
+.carnival-awning {
+  display: flex;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  z-index: 20;
+}
+
+.awning-segment {
+  flex: 1;
+  height: 35px;
+  border-bottom-left-radius: 50%;
+  border-bottom-right-radius: 50%;
+}
+.red { background: var(--primary-red); }
+.white { background: #f0f0f0; }
+
+/* Contenedor de patos */
+.duck-gallery-container {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  padding-top: 50px;
+}
+
+/* Filas de movimiento (Carriles) */
+.duck-row {
+  position: absolute;
+  width: 100%;
+  height: 60px;
+  display: flex;
+  align-items: center;
+}
+
+/* Estilo de los patos */
+.duck-target {
+  position: absolute;
+  cursor: crosshair;
+  transition: transform 0.2s;
+}
+
+.duck-target img {
+  width: 55px;
+  filter: drop-shadow(0 4px 6px rgba(0,0,0,0.3));
+}
+
+/* ANIMACIONES: Los patos cruzan de lado a lado */
+@keyframes moveRight {
+  from { left: -80px; }
+  to { left: 100%; }
+}
+
+@keyframes moveLeft {
+  from { left: 100%; }
+  to { left: -80px; }
+}
+
+/* Aplicación de movimiento (puedes cambiarlas con JS) */
+.animate-right { animation: moveRight 5s linear infinite; }
+.animate-left { animation: moveLeft 4s linear infinite; }
+
+/* Botón PLAY (Overlay) */
+.play-button-container {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 30;
+  border-radius: 35px;
+}
+
+.play-main-btn {
+  background: none;
+  border: 6px solid white;
+  width: 110px;
+  height: 110px;
+  border-radius: 50%;
+  color: white;
+  font-size: 1.2rem;
+  font-weight: 900;
+  cursor: pointer;
+  transition: all 0.3s;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.play-main-btn:hover {
+  transform: scale(1.1);
+  background: var(--primary-red);
+  border-color: var(--primary-red);
+}
+
+/* Efecto cuando disparas al pato */
+.duck-target.hit {
+  transform: scale(0) rotate(180deg);
+  opacity: 0;
+  pointer-events: none;
+}
+@media (min-width: 1024px) {
+  /* Contenedor principal del toldo */
+  .carnival-awning {
+    height: 60px; /* Un poco más alto en PC */
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+    z-index: 10;
+    display: block; /* Asegura que se vea */
+  }
+
+  /* El patrón de ondas repetitivas */
+  .awning-pattern {
+    width: 100%;
+    height: 100%;
+    /* Creamos las franjas rojas y blancas con un degradado repetitivo */
+    background: repeating-linear-gradient(
+      to right,
+      var(--primary-red),
+      var(--primary-red) 50px,
+      #f0f0f0 50px,
+      #f0f0f0 100px
+    );
+    position: relative;
+  }
+
+  /* Añadimos el efecto de "ondas" o semicírculos abajo */
+  .awning-pattern::after {
+    content: '';
+    position: absolute;
+    bottom: -15px;
+    left: 0;
+    width: 100%;
+    height: 30px;
+    /* Este patrón crea los semicírculos */
+    background-image: radial-gradient(circle at 50% 0%, var(--primary-red) 50%, transparent 55%),
+                      radial-gradient(circle at 50% 0%, #f0f0f0 50%, transparent 55%);
+    background-size: 100px 30px; /* Debe coincidir con el ancho de las franjas arriba */
+    background-position: 0px 0, 50px 0;
+    background-repeat: repeat-x;
+  }
+}
