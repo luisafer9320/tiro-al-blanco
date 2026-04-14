@@ -1,55 +1,81 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tiro al Blanco</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Carnival Ducks</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/game.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
-
 <body>
-    <header class="header">
-    <nav class="nav">
-        <ul>
-            <li><a href="#">Inicio</a></li>
-            <li><a href="#">Jugar</a></li>
-            <li><a href="#">Puntuaciones</a></li>
-            <li><a href="#">Contacto</a></li>
-        </ul>
-    </nav>
-    </header>
-    <main>
-        <h1>Tiro al Blanco</h1>
-        <h2>¡Bienvenido! Haz clic en el botón para comenzar a jugar.</h2>
-        
-    <div id="game-container">
-        <canvas id="game-canvas" width="800" height="250"></canvas>
-        <div id="score-board">
-            <h2>Puntuación: <span id="score">0</span></h2>
-            <button id="start-button">Iniciar Juego</button>      
-        
 
-    </main>
+    <div class="dashboard-container">
+        <header class="app-header">
+            <div class="weather-info">
+                <i class="fas fa-cloud-rain"></i>
+                <div class="weather-details">
+                    <span>24°C Sunny</span>
+                </div>
+            </div>
+            <h1 class="app-title">CARNIVAL<br>DUCKS</h1>
+            <div class="location-top">
+                <span>MADRID, ES</span>
+            </div>
+        </header>
 
-    <aside class="noticias">
-        <h3>Noticias ( Ponerlo a la derecha con los estilos para desktops, en mobile responsive debajo )</h3>
-    </aside>
+        <main class="game-area">
+            <div class="carnival-awning">
+                <div class="awning-segment red"></div>
+                <div class="awning-segment white"></div>
+                <div class="awning-segment red"></div>
+                <div class="awning-segment white"></div>
+                <div class="awning-segment red"></div>
+            </div>
 
-    <section class="bloque" id="bloque1">
-        <h3>Nombre1</h3>
-    </section>
-    <section class="bloque" id="bloque2">
-        <h3>Nombre2</h3>
-    </section>
-    <footer>
-        <h3>Footer</h3>
-    </footer>
+            <div class="game-controls">
+                <div class="control-item">SCORE: <span class="value">240</span></div>
+                <button class="control-item btn-reset">REINICIAR</button>
+                <div class="control-item">TIME: <span class="value time-value">00:45</span></div>
+            </div>
 
+            <div class="play-button-container">
+                <button class="play-main-btn">
+                    <span>PLAY</span>
+                </button>
+            </div>
+        </main>
 
+        <section class="info-section">
+            <div class="info-grid">
+                <article class="card">
+                    <span class="card-label">LOCATION</span>
+                    <h3>Madrid</h3>
+                    <span class="card-sub-info">Spain District</span>
+                </article>
+                <article class="card">
+                    <span class="card-label">DAILY WINNER</span>
+                    <h3>@DuckKing99</h3>
+                    <span class="card-sub-info">1,240 Hits</span>
+                </article>
+            </div>
+        </section>
 
-    <script src="main.js"></script>
+        <footer>
+            <nav class="footer-nav">
+                <button type="button">INICIO</button>
+                <button type="button">Idiomas</button>
+                <button type="button">Juegos</button>
+                <button type="button">PERFIL</button>
+            </nav>
+            <div class="Navfooter">
+                <a href="#">Condiciones de uso</a> | 
+                <a href="#">Política de privacidad</a> | 
+                <a href="#">Contacto</a>
+                <p>&copy; 2026 Tiro al Blanco. Todos los derechos reservados.</p>
+            </div>
+        </footer>
+    </div>
 
 </body>
-
 </html>
