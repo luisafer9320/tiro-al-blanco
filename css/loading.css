@@ -1,0 +1,34 @@
+/* CONTENEDOR DEL FONDO */
+.four_zero_four_bg {
+    background-image: url("../assets/duck.png");
+    background-size: cover;       /* La imagen cubre todo el fondo */
+    background-position: center;  /* Centrada */
+    background-repeat: no-repeat; /* No se repite */
+    width: 100%;
+    height: 100vh;                /* Ocupa toda la pantalla */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: #fff;                  /* Opcional: texto blanco */
+}
+
+
+/* TEXTO */
+.four_zero_four_bg h1 {
+    font-size: 3rem;
+    margin-top: 20px;
+}
+
+/* PATO RESPONSIVE */
+.duck-img {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+
+    width: 15vw;        /* Se adapta al ancho de pantalla */
+    max-width: 100px;   /* Tamaño máximo */
+    height: auto;
+
+    z-index: 10;
+}
