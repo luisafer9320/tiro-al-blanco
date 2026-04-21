@@ -1,232 +1,772 @@
+/* =========================================================
+   GAME.CSS - Tiro al Blanco de Feria
+   ========================================================= */
+
+/* Área Principal del Juego */
 .game-area {
-  background: radial-gradient(circle, #1a1c2c 0%, #05050a 100%);
-  border-radius: 40px;
-  height: 600px; /* Puedes subirlo a 700px o 800px si quieres más espacio */
-  margin: 0 15px;
-  position: relative;
-  overflow: hidden;
-  border: 1px solid var(--glass);
-  display: flex;
-  flex-direction: column; /* Alinea el toldo arriba y el contenido abajo */
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    height: 550px;
+    margin: 0 15px;
+    border-radius: 30px;
+    overflow: hidden;
+    background: #87CEEB;
+    border: 3px solid #b02121;
 }
 
-/* EL NUEVO TOLDO REALISTA (Único que queda) */
+/* TOLDO - Fijo arriba */
 .toldo {
-  width: 100%;
-  height: 120px; 
-  position: relative;
-  overflow: hidden; 
-  border-radius: 30px 30px 0 0;
-  box-shadow: 0 10px 20px rgba(0,0,0,0.5);
-  z-index: 10;
+    width: 100%;
+    height: 80px;
+    position: relative;
+    overflow: hidden;
+    z-index: 15;
+    flex-shrink: 0;
+    background: #b02121;
 }
 
 .rayas {
-  width: 100%;
-  height: 100%;
-  background: repeating-linear-gradient(
-    90deg,
-    #b02121 0px,      
-    #e63946 40px,     
-    #b02121 80px,     
-    #d1d1d1 80px,     
-    #ffffff 120px,    
-    #d1d1d1 160px     
-  );
+    width: 100%;
+    height: 100%;
+    background: repeating-linear-gradient(
+        90deg,
+        #b02121 0px,
+        #e63946 25px,
+        #b02121 50px,
+        #d1d1d1 50px,
+        #ffffff 75px,
+        #d1d1d1 100px
+    );
 }
 
 .toldo::after {
-  content: "";
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 40px;
-  background-image: 
-    radial-gradient(circle at 40px 0, #b02121 40px, transparent 41px),
-    radial-gradient(circle at 120px 0, #d1d1d1 40px, transparent 41px);
-  background-size: 160px 40px;
-  background-repeat: repeat-x;
-  filter: drop-shadow(0 5px 5px rgba(0,0,0,0.5));
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 25px;
+    background-image: 
+        radial-gradient(circle at 25px 0, #b02121 25px, transparent 26px),
+        radial-gradient(circle at 75px 0, #d1d1d1 25px, transparent 26px);
+    background-size: 100px 25px;
+    background-repeat: repeat-x;
 }
 
-/* CONTROLES DENTRO DEL JUEGO */
+/* Contenido del juego - debajo del toldo */
+.game-content {
+    flex: 1;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+/* PANTALLAS */
+.screen {
+    position: absolute;
+    inset: 0;
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 20;
+    background: rgba(0, 0, 0, 0.85);
+    width: 100%;
+    height: 100%;
+}
+
+.screen.active {
+    display: flex;
+}
+
+/* PANTALLA DE INICIO */
+#startScreen {
+    background: linear-gradient(180deg, #87CEEB 0%, #E0F6FF 50%, #90EE90 50%);
+}
+
+#startScreen .level-select {
+    text-align: center;
+    width: 90%;
+    max-width: 280px;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 20px;
+}
+
+#startScreen h2 {
+    color: #b02121;
+    font-size: 1.3rem;
+    margin-bottom: 15px;
+}
+
+.level-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.level-btn {
+    display: flex;
+    align-items: center;
+    padding: 12px 15px;
+    background: #fff;
+    border: 2px solid #ddd;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.level-btn:hover {
+    border-color: #e63946;
+}
+
+.level-btn.active {
+    background: #FFD700;
+    border-color: #FFA500;
+}
+
+.level-number {
+    width: 32px;
+    height: 32px;
+    background: #e63946;
+    color: #fff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 1rem;
+    margin-right: 10px;
+}
+
+.level-btn.level-2 .level-number { background: #ff8c00; }
+.level-btn.level-3 .level-number { background: #FFD700; color: #000; }
+
+.level-name {
+    flex: 1;
+    text-align: left;
+    font-weight: bold;
+    color: #333;
+    font-size: 1rem;
+}
+
+.play-btn {
+    margin-top: 15px;
+    padding: 12px 40px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    background: #32CD32;
+    color: #fff;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+.play-btn:hover:not(:disabled) {
+    background: #228B22;
+}
+
+.play-btn:disabled {
+    background: #999;
+    cursor: not-allowed;
+}
+
+/* PANTALLA DE JUEGO */
+#gameScreen {
+    background: transparent;
+    justify-content: flex-start;
+}
+
 .game-controls {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  padding: 15px;
-  font-weight: bold;
-  z-index: 11; /* Para que Score y Time queden sobre el fondo */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 15px;
+    background: rgba(0, 0, 0, 0.6);
 }
 
-/* Toldo de feria */
-.carnival-awning {
-  display: flex;
-  position: absolute;
-  top: 0;
-  width: 100%;
-  z-index: 20;
+.control-item {
+    color: #fff;
+    font-weight: bold;
+    font-size: 0.9rem;
 }
 
-.awning-segment {
-  flex: 1;
-  height: 35px;
-  border-bottom-left-radius: 50%;
-  border-bottom-right-radius: 50%;
-}
-.red {
-  background: var(--primary-red);
-}
-.white {
-  background: #f0f0f0;
+.control-item .value {
+    color: #FFD700;
+    font-size: 1.1rem;
 }
 
-/* Contenedor de patos */
-.duck-gallery-container {
-  position: relative;
-  height: 100%;
-  width: 100%;
-  padding-top: 50px;
+/* Botón PAUSA */
+.pause-floating {
+    position: absolute;
+    bottom: 15px;
+    right: 15px;
+    background: #e63946;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 0.9rem;
+    z-index: 25;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.3);
 }
 
-/* Filas de movimiento (Carriles) */
-.duck-row {
-  position: absolute;
-  width: 100%;
-  height: 60px;
-  display: flex;
-  align-items: center;
+.pause-floating:hover {
+    background: #ff3d3d;
 }
 
-/* Estilo de los patos */
-.duck-target {
-  position: absolute;
-  cursor: crosshair;
-  transition: transform 0.2s;
+/* Canvas del juego */
+#gameCanvas {
+    flex: 1;
+    position: relative;
+    background: linear-gradient(180deg, #87CEEB 0%, #B0E0E6 45%, #90EE90 45%);
+    overflow: hidden;
+    cursor: crosshair;
+    min-height: 300px;
 }
 
-.duck-target img {
-  width: 55px;
-  filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.3));
+/* PATO AMARILLO */
+.duck {
+    position: absolute;
+    width: 55px;
+    height: 45px;
+    cursor: crosshair;
+    z-index: 5;
 }
 
-/* ANIMACIONES: Los patos cruzan de lado a lado */
+/* Cuerpo del pato */
+.duck::before {
+    content: '';
+    position: absolute;
+    width: 42px;
+    height: 30px;
+    background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+    border-radius: 50% 50% 45% 45%;
+    top: 10px;
+    left: 3px;
+    box-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+}
+
+/* Cabeza */
+.duck::after {
+    content: '';
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+    border-radius: 50%;
+    top: 3px;
+    left: 28px;
+    box-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+}
+
+/* Ojo */
+.duck .eye {
+    position: absolute;
+    width: 5px;
+    height: 5px;
+    background: #000;
+    border-radius: 50%;
+    top: 8px;
+    left: 38px;
+    z-index: 10;
+}
+
+/* Pico */
+.duck .beak {
+    position: absolute;
+    width: 12px;
+    height: 6px;
+    background: #FF6600;
+    border-radius: 0 50% 50% 50%;
+    top: 16px;
+    left: 44px;
+    z-index: 10;
+}
+
+/* Ala */
+.duck .wing {
+    position: absolute;
+    width: 18px;
+    height: 11px;
+    background: #FFA500;
+    border-radius: 50%;
+    top: 18px;
+    left: 14px;
+    z-index: 8;
+}
+
+/* Animaciones */
+.animate-right {
+    animation: moveRight 5s linear forwards;
+}
+
+.animate-left {
+    animation: moveLeft 5s linear forwards;
+}
+
 @keyframes moveRight {
-  from {
-    left: -80px;
-  }
-  to {
-    left: 100%;
-  }
+    from { left: -70px; }
+    to { left: 100%; }
 }
 
 @keyframes moveLeft {
-  from {
-    left: 100%;
-  }
-  to {
-    left: -80px;
-  }
+    from { left: 100%; }
+    to { left: -70px; }
 }
 
-/* Aplicación de movimiento (puedes cambiarlas con JS) */
-.animate-right {
-  animation: moveRight 5s linear infinite;
-}
-.animate-left {
-  animation: moveLeft 4s linear infinite;
-}
-
-/* Botón PLAY (Overlay) */
-.play-button-container {
-  position: absolute;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.5);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 30;
-  border-radius: 35px;
+/* Impacto */
+.duck.hit {
+    transform: scale(0) rotate(180deg);
+    opacity: 0;
+    transition: all 0.3s;
+    pointer-events: none;
 }
 
-.play-main-btn {
-  background: none;
-  border: 6px solid white;
-  width: 110px;
-  height: 110px;
-  border-radius: 50%;
-  color: white;
-  font-size: 1.2rem;
-  font-weight: 900;
-  cursor: pointer;
-  transition: all 0.3s;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+/* PANTALLA DE PAUSA */
+#pauseScreen {
+    background: rgba(0, 0, 0, 0.9);
 }
 
-.play-main-btn:hover {
-  transform: scale(1.1);
-  background: var(--primary-red);
-  border-color: var(--primary-red);
+#pauseScreen h2 {
+    font-size: 1.8rem;
+    color: #FFD700;
+    margin-bottom: 25px;
 }
 
-/* Efecto cuando disparas al pato */
-.duck-target.hit {
-  transform: scale(0) rotate(180deg);
-  opacity: 0;
-  pointer-events: none;
+#pauseScreen button {
+    margin: 8px;
+    padding: 10px 25px;
+    font-size: 0.95rem;
+    font-weight: bold;
+    border: none;
+    border-radius: 18px;
+    cursor: pointer;
 }
-@media (min-width: 1024px) {
-  /* Contenedor principal del toldo */
-  .carnival-awning {
-    height: 60px; /* Un poco más alto en PC */
+
+#resumeBtn {
+    background: #32CD32;
+    color: #fff;
+}
+
+#exitPauseBtn {
+    background: #e63946;
+    color: #fff;
+}
+
+/* PANTALLA DE GAME OVER */
+#gameOverScreen {
+    background: rgba(0, 0, 0, 0.9);
+}
+
+#gameOverScreen h2 {
+    font-size: 2rem;
+    color: #e63946;
+    margin-bottom: 15px;
+}
+
+#gameOverScreen p {
+    color: #fff;
+    font-size: 1rem;
+    margin: 6px 0;
+}
+
+#gameOverScreen p span {
+    color: #FFD700;
+    font-size: 1.2rem;
+}
+
+#gameOverScreen button {
+    margin-top: 20px;
+    padding: 12px 35px;
+    font-size: 1rem;
+    font-weight: bold;
+    background: #FFD700;
+    color: #000;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+/* TOLDO DE FERIA */
+.toldo {
     width: 100%;
-    position: absolute;
-    top: 0;
-    left: 0;
+    height: 120px;
+    position: relative;
     overflow: hidden;
+    border-radius: 30px 30px 0 0;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.5);
     z-index: 10;
-    display: block; /* Asegura que se vea */
-  }
+}
 
-  /* El patrón de ondas repetitivas */
-  .awning-pattern {
+.rayas {
     width: 100%;
     height: 100%;
-    /* Creamos las franjas rojas y blancas con un degradado repetitivo */
     background: repeating-linear-gradient(
-      to right,
-      var(--primary-red),
-      var(--primary-red) 50px,
-      #f0f0f0 50px,
-      #f0f0f0 100px
+        90deg,
+        #b02121 0px,
+        #e63946 40px,
+        #b02121 80px,
+        #d1d1d1 80px,
+        #ffffff 120px,
+        #d1d1d1 160px
     );
-    position: relative;
-  }
+}
 
-  /* Añadimos el efecto de "ondas" o semicírculos abajo */
-  .awning-pattern::after {
-    content: '';
+.toldo::after {
+    content: "";
     position: absolute;
-    bottom: -15px;
+    bottom: 0;
     left: 0;
     width: 100%;
-    height: 30px;
-    /* Este patrón crea los semicírculos */
-    background-image:
-      radial-gradient(
-        circle at 50% 0%,
-        var(--primary-red) 50%,
-        transparent 55%
-      ),
-      radial-gradient(circle at 50% 0%, #f0f0f0 50%, transparent 55%);
-    background-size: 100px 30px; /* Debe coincidir con el ancho de las franjas arriba */
-    background-position:
-      0px 0,
-      50px 0;
+    height: 40px;
+    background-image: 
+        radial-gradient(circle at 40px 0, #b02121 40px, transparent 41px),
+        radial-gradient(circle at 120px 0, #d1d1d1 40px, transparent 41px);
+    background-size: 160px 40px;
     background-repeat: repeat-x;
-  }
+    filter: drop-shadow(0 5px 5px rgba(0,0,0,0.5));
+}
+
+/* PATO DE FERIA - Estilo realista */
+.duck, .duck-target {
+    position: absolute;
+    cursor: crosshair;
+    transition: transform 0.1s;
+    width: 60px;
+    height: 50px;
+    z-index: 5;
+}
+
+/* Cuerpo del pato */
+.duck::before {
+    content: '';
+    position: absolute;
+    width: 45px;
+    height: 35px;
+    background: linear-gradient(135deg, #FFD700 0%, #FFA500 50%, #FF8C00 100%);
+    border-radius: 50% 50% 45% 45%;
+    top: 10px;
+    left: 5px;
+    box-shadow: 
+        inset -5px -5px 10px rgba(0,0,0,0.2),
+        2px 2px 5px rgba(0,0,0,0.3);
+}
+
+/* Cabeza del pato */
+.duck::after {
+    content: '';
+    position: absolute;
+    width: 22px;
+    height: 22px;
+    background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+    border-radius: 50%;
+    top: 2px;
+    left: 30px;
+    box-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+}
+
+/* Ojo del pato */
+.duck .eye {
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    background: #000;
+    border-radius: 50%;
+    top: 8px;
+    left: 42px;
+    z-index: 10;
+}
+
+.duck .eye::after {
+    content: '';
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    background: #fff;
+    border-radius: 50%;
+    top: 1px;
+    left: 1px;
+}
+
+/* Pico del pato */
+.duck .beak {
+    position: absolute;
+    width: 12px;
+    height: 6px;
+    background: linear-gradient(180deg, #FF6600 0%, #FF4500 100%);
+    border-radius: 0 50% 50% 50%;
+    top: 16px;
+    left: 48px;
+    z-index: 10;
+}
+
+/* Ala del pato */
+.duck .wing {
+    position: absolute;
+    width: 20px;
+    height: 12px;
+    background: linear-gradient(135deg, #FFA500 0%, #FF8C00 100%);
+    border-radius: 50%;
+    top: 20px;
+    left: 15px;
+    z-index: 8;
+}
+
+/* Si usa imagen */
+.duck img, .duck-target img {
+    width: 100%;
+    filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.3));
+}
+
+/* ANIMACIONES */
+.animate-right {
+    animation: moveRight 5s linear infinite;
+}
+
+.animate-left {
+    animation: moveLeft 4s linear infinite;
+}
+
+@keyframes moveRight {
+    from { left: -80px; }
+    to { left: 110%; }
+}
+
+@keyframes moveLeft {
+    from { left: 110%; }
+    to { left: -80px; }
+}
+
+/* Estado de impacto */
+.duck.hit, .duck-target.hit {
+    transform: scale(0) rotate(180deg);
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* PANTALLAS DE JUEGO */
+.screen {
+    position: absolute;
+    inset: 0;
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 20;
+    background: rgba(0, 0, 0, 0.7);
+    border-radius: 36px;
+}
+
+.screen.active {
+    display: flex;
+}
+
+/* Pantalla de pausa */
+#pauseScreen {
+    background: rgba(0, 0, 0, 0.85);
+}
+
+#pauseScreen h2 {
+    font-size: 2.5rem;
+    color: #FFD700;
+    text-shadow: 2px 2px 4px #000;
+    margin-bottom: 30px;
+    font-weight: 900;
+    letter-spacing: 3px;
+}
+
+#pauseScreen button {
+    margin: 10px;
+    padding: 15px 40px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+#resumeBtn {
+    background: linear-gradient(135deg, #32CD32 0%, #228B22 100%);
+    color: white;
+}
+
+#resumeBtn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 5px 20px rgba(50, 205, 50, 0.5);
+}
+
+#exitPauseBtn {
+    background: linear-gradient(135deg, #e63946 0%, #b02121 100%);
+    color: white;
+}
+
+#exitPauseBtn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 5px 20px rgba(230, 57, 70, 0.5);
+}
+
+/* Pantalla de Game Over */
+#gameOverScreen {
+    background: rgba(0, 0, 0, 0.9);
+}
+
+#gameOverScreen h2 {
+    font-size: 3rem;
+    color: #e63946;
+    text-shadow: 3px 3px 6px #000;
+    margin-bottom: 20px;
+    font-weight: 900;
+    letter-spacing: 5px;
+}
+
+#gameOverScreen p {
+    font-size: 1.2rem;
+    color: #fff;
+    margin: 10px 0;
+    font-weight: bold;
+}
+
+#gameOverScreen p span {
+    color: #FFD700;
+    font-size: 1.5rem;
+}
+
+#gameOverScreen button {
+    margin-top: 30px;
+    padding: 18px 50px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+    color: #000;
+    transition: all 0.3s;
+}
+
+#gameOverScreen button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 5px 25px rgba(255, 215, 0, 0.5);
+}
+
+/* Canvas del juego */
+#gameCanvas {
+    flex: 1;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Controles del juego */
+.game-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 25px;
+    background: rgba(0, 0, 0, 0.3);
+    border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+}
+
+.control-item {
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #fff;
+    text-shadow: 1px 1px 2px #000;
+}
+
+.control-item .value {
+    color: #FFD700;
+    font-size: 1.3rem;
+    margin-left: 5px;
+}
+
+.btn-reset {
+    background: linear-gradient(135deg, #e63946 0%, #b02121 100%);
+    border: none;
+    color: white;
+    padding: 10px 25px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 0.9rem;
+    transition: all 0.3s;
+}
+
+.btn-reset:hover {
+    transform: scale(1.05);
+    box-shadow: 0 3px 15px rgba(230, 57, 70, 0.5);
+}
+
+/* 1. Definición básica del pato */
+.duck {
+    position: absolute;
+    width: 60px;
+    height: 50px;
+    background-color: #FFD700; /* Color amarillo */
+    border-radius: 40% 40% 10% 10%;
+    cursor: pointer;
+    z-index: 20; /* Asegura que esté sobre el fondo */
+    transition: transform 0.2s;
+}
+
+/* 2. Estilos para las partes inyectadas por JS */
+.eye {
+    width: 8px;
+    height: 8px;
+    background: black;
+    border-radius: 50%;
+    position: absolute;
+    top: 10px;
+    right: 15px;
+}
+
+.beak {
+    width: 15px;
+    height: 10px;
+    background: orange;
+    position: absolute;
+    top: 15px;
+    right: 5px;
+    border-radius: 0 50% 50% 0;
+}
+
+.wing {
+    width: 20px;
+    height: 15px;
+    background: #e6b800;
+    position: absolute;
+    top: 25px;
+    left: 10px;
+    border-radius: 50%;
+}
+
+/* 3. Animaciones de movimiento */
+.animate-left {
+    animation: moveLeft linear forwards;
+}
+
+.animate-right {
+    animation: moveRight linear forwards;
+}
+
+@keyframes moveLeft {
+    from { left: 100%; }
+    to { left: -100px; }
+}
+
+@keyframes moveRight {
+    from { left: -100px; }
+    to { left: 100%; }
+}
+
+/* 4. Efecto al hacer click */
+.duck.hit {
+    background-color: red !important;
+    transform: scale(0.5);
+    opacity: 0;
 }

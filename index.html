@@ -20,9 +20,7 @@
                     <span>24°C Sunny</span>
                 </div>
             </div>
-
             <h1 class="app-title">CARNIVAL<br>DUCKS</h1>
-
             <div class="location-top">
                 <i class="fas fa-map-marker-alt" aria-hidden="true"></i>
                 <span>MADRID, ES</span>
@@ -30,27 +28,58 @@
         </header>
 
         <main class="game-area">
-            <div class="toldo" aria-hidden="true">
-                <div class="rayas"></div>
-            </div>
-
-            <div class="game-controls">
-                <div class="control-item">
-                    SCORE: <span class="value" id="score">240</span>
-                </div>
-                <button class="btn-reset" id="btnReset">REINICIAR</button>
-                <div class="control-item">
-                    TIME: <span class="value time-value" id="timer">00:45</span>
-                </div>
-            </div>
-
-            <div class="play-button-container">
-                <button class="play-main-btn" id="btnPlay" aria-label="Jugar">
-                    <span>PLAY</span>
-                </button>
-            </div>
+            <!-- Toldo fijo en la parte superior -->
+            <div class="toldo"><div class="rayas"></div></div>
             
-            <div id="gameCanvas"></div>
+            <!-- Área de juego con las pantallas -->
+            <div class="game-content">
+                
+                <div id="startScreen" class="screen active">
+                    <div class="level-select">
+                        <h2>ELIGE TU NIVEL</h2>
+                        <div class="level-buttons">
+                            <button class="level-btn level-1" data-level="1">
+                                <span class="level-number">1</span>
+                                <span class="level-name">Principiante</span>
+                            </button>
+                            <button class="level-btn level-2" data-level="2">
+                                <span class="level-number">2</span>
+                                <span class="level-name">Intermedio</span>
+                            </button>
+                            <button class="level-btn level-3" data-level="3">
+                                <span class="level-number">3</span>
+                                <span class="level-name">Experto</span>
+                            </button>
+                        </div>
+                        <button class="play-btn" id="startBtn" disabled>JUGAR</button>
+                    </div>
+                </div>
+
+                <div id="gameScreen" class="screen">
+                    <div class="game-controls">
+                        <div class="control-item">PUNTOS: <span class="value" id="score">0</span></div>
+                        <div class="control-item">TIEMPO: <span class="value time-value" id="time">45</span></div>
+                    </div>
+                    <div id="gameCanvas">
+                        <button class="pause-floating" id="pauseBtn">⏸️ PAUSA</button>
+                    </div>
+                </div>
+
+                <div id="pauseScreen" class="screen">
+                    <h2>JUEGO PAUSADO</h2>
+                    <button id="resumeBtn">REANUDAR</button>
+                    <button id="exitPauseBtn">SALIR</button>
+                </div>
+
+                <div id="gameOverScreen" class="screen">
+                    <h2>GAME OVER</h2>
+                    <p>Puntos: <span id="finalScore">0</span></p>
+                    <p>Aciertos: <span id="finalHits">0</span></p>
+                    <p>Precisión: <span id="finalPrecision">0%</span></p>
+                    <button id="restartBtn">JUGAR DE NUEVO</button>
+                </div>
+
+            </div>
         </main>
 
         <section class="info-section">
@@ -60,7 +89,6 @@
                     <h3>Madrid</h3>
                     <span class="card-sub-info">Spain District</span>
                 </article>
-
                 <article class="card">
                     <span class="card-label">DAILY WINNER</span>
                     <h3>@DuckKing99</h3>
@@ -87,6 +115,6 @@
         </footer>
     </div>
 
-    <script src="js/main.js" type="module"></script>
+<script src="main.js" type="module"></script>
 </body>
 </html>
