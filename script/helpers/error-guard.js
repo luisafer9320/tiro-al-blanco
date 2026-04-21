@@ -4,7 +4,7 @@
 (async () => {
   try {
     // Intentamos cargar main.js para comprobar si ya no hay errores
-    await import("../main.js");
+    await import("../../main.js");
 
     // Si main.js carga sin errores → el sistema está sano
     window.location.href = "../index.html";

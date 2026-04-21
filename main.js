@@ -2,7 +2,7 @@
 
 /*import { startGame } from './features/core/game.js';*/
 await import ("./views.js");
-
+import { initViewListeners } from './views.js';
 /*document.addEventListener('DOMContentLoaded', () => {
   startGame();
 });*/
