@@ -66,9 +66,13 @@ export function initViewListeners() {
 
     // Botón PAUSA
     elements.pauseBtn?.addEventListener('click', () => {
+        console.log("¡Clic detectado en el botón de pausa!");
+        
         if (game.isPlaying) {
             game.pauseGame();
             switchScreen('pause');
+        } else {
+            console.log("El juego no está en estado 'playing', por eso no se ejecuta la pausa.");
         }
     });
 

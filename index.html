@@ -6,32 +6,32 @@
     <title>Carnival Ducks | Tiro al Blanco</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="css/style.css" />
     <link rel="stylesheet" href="css/game.css" />
+    <link rel="icon" href="assets/goma.png"/>
 </head>
 <body>
-
-    <div class="dashboard-container">
-        <header class="app-header">
-            <div class="weather-info">
-                <i class="fas fa-cloud-rain" aria-hidden="true"></i>
-                <div class="weather-details">
-                    <span>24°C Sunny</span>
-                </div>
-            </div>
-            <h1 class="app-title">CARNIVAL<br>DUCKS</h1>
-            <div class="location-top">
-                <i class="fas fa-map-marker-alt" aria-hidden="true"></i>
-                <span>MADRID, ES</span>
-            </div>
-        </header>
+         <!-- Barra de navegación del juego -->
+        <nav class="game-nav">
+            <a href="https://adriasu09.github.io/landing-Carnival/#games" class="nav-item" target="_blank">
+                <i class="fas fa-home"></i><span>Home</span>
+            </a>
+            <a href="#" class="nav-item active">
+                <i class="fas fa-crosshairs"></i><span>Jugar</span>
+            </a>
+            <a href="#" class="nav-item">
+                <i class="fas fa-trophy"></i><span>Ranking</span>
+            </a>
+            <a href="#" class="nav-item">
+                <i class="fas fa-cog"></i><span>Ajustes</span>
+            </a>
+        </nav>
 
         <main class="game-area">
-            <!-- Toldo fijo en la parte superior -->
             <div class="toldo"><div class="rayas"></div></div>
             
-            <!-- Área de juego con las pantallas -->
             <div class="game-content">
                 
                 <div id="startScreen" class="screen active">
@@ -60,10 +60,12 @@
                         <div class="control-item">PUNTOS: <span class="value" id="score">0</span></div>
                         <div class="control-item">TIEMPO: <span class="value time-value" id="time">45</span></div>
                     </div>
-                    <div id="gameCanvas">
-                        <button class="pause-floating" id="pauseBtn">⏸️ PAUSA</button>
-                    </div>
-                </div>
+<div id="gameCanvas">
+    <button class="pause-floating" id="pauseBtn">
+        <span class="icon">⏸️</span>
+        <span class="text">PAUSA</span>
+    </button>
+</div>
 
                 <div id="pauseScreen" class="screen">
                     <h2>JUEGO PAUSADO</h2>
@@ -89,10 +91,17 @@
                     <h3>Madrid</h3>
                     <span class="card-sub-info">Spain District</span>
                 </article>
+                
                 <article class="card">
                     <span class="card-label">DAILY WINNER</span>
                     <h3>@DuckKing99</h3>
                     <span class="card-sub-info">1,240 Hits</span>
+                </article>
+
+                <article class="card" id="news-section">
+                    <span class="card-label">TITULARES</span>
+                    <div id="news-container">
+                    </div>
                 </article>
             </div>
         </section>
@@ -104,7 +113,7 @@
                 <button type="button" aria-label="Juegos"><i class="fas fa-gamepad"></i><br>JUEGOS</button>
                 <button type="button" aria-label="Perfil"><i class="fas fa-user"></i><br>PERFIL</button>
             </nav>
-            <div class="Navfooter">
+            <div class="nav-footer">
                 <div class="legal-links">
                     <a href="#">Condiciones de uso</a>
                     <a href="#">Política de privacidad</a>

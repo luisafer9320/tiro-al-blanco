@@ -1,7 +1,7 @@
 // Punto de entrada de la aplicación
 import { initViewListeners } from './views.js';
 
-// Gestión de APIs de geolocalización
+// Gestión de APIs
 const APIManager = {
     async getLocation() {
         return new Promise((resolve) => {
@@ -42,8 +42,9 @@ async function loadLocationData() {
     }
 }
 
-// Inicialización al cargar el DOM
+// Inicialización centralizada al cargar el DOM
 document.addEventListener('DOMContentLoaded', () => {
     initViewListeners();
     loadLocationData();
+    // cargarNoticias();  <-- ASEGÚRATE DE QUE ESTO ESTÉ COMENTADO O BORRADO
 });
