@@ -49,12 +49,18 @@ export function showGameOver(score, hits, accuracy) {
 // Inicializar todos los eventos de la UI
 export function initViewListeners() {
     // Selección de nivel
-    document.querySelectorAll('.level-btn').forEach(btn => {
+    const levelButtons = document.querySelectorAll('.level-btn');
+    console.log('Botones de nivel encontrados:', levelButtons.length);
+    
+    levelButtons.forEach(btn => {
         btn.addEventListener('click', (e) => {
-            document.querySelectorAll('.level-btn').forEach(b => b.classList.remove('active'));
-            e.currentTarget.classList.add('active');
+            console.log('Click en nivel:', e.currentTarget.dataset.level);
+            levelButtons.forEach(b => b.classList.remove('selected'));
+            e.currentTarget.classList.add('selected');
             selectedLevel = parseInt(e.currentTarget.dataset.level);
+            console.log('Nivel seleccionado:', selectedLevel);
             elements.startBtn.disabled = false;
+            console.log('Botón JUGAR habilitado');
         });
     });
 

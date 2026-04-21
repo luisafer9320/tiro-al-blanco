@@ -167,19 +167,23 @@
 }
 
 .play-btn {
-    margin-top: 15px;
-    padding: 12px 40px;
-    font-size: 1.1rem;
+    margin-top: 20px;
+    padding: 14px 50px;
+    font-size: 1rem;
     font-weight: bold;
-    background: #32CD32;
+    background: linear-gradient(135deg, #32CD32, #228B22);
     color: #fff;
     border: none;
-    border-radius: 20px;
+    border-radius: 25px;
     cursor: pointer;
+    box-shadow: 0 4px 15px rgba(50, 205, 50, 0.3);
+    transition: all 0.3s ease;
 }
 
 .play-btn:hover:not(:disabled) {
-    background: #228B22;
+    background: linear-gradient(135deg, #3dd73d, #2ea82e);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(50, 205, 50, 0.4);
 }
 
 .play-btn:disabled {
@@ -373,6 +377,7 @@
 /* PANTALLA DE PAUSA */
 #pauseScreen {
     background: rgba(0, 0, 0, 0.9);
+    z-index: 100;
 }
 
 #pauseScreen h2 {
