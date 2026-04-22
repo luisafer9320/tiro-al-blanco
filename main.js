@@ -11,7 +11,6 @@ window.addEventListener("error", function (e) {
     window.location.href = "pages/error.html";
 }, true);
 
-// Promesas rechazadas sin catch
 window.addEventListener("unhandledrejection", function (e) {
     console.error("Promesa sin manejar:", e.reason);
     window.location.href = "pages/error.html";
@@ -65,7 +64,7 @@ async function loadLocationData() {
     }
 }*/
 
-document.addEventListener('DOMContentLoaded', () => {
+/*document.addEventListener('DOMContentLoaded', () => {
     initViewListeners();
     loadLocationData();
 
@@ -100,4 +99,4 @@ document.addEventListener('DOMContentLoaded', () => {
             playBackgroundMusic();
         });
     }
-});
+});*/
