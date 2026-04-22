@@ -1,5 +1,3 @@
-// IMPORTANTE: Reemplaza 'YOUR_API_KEY' con tu clave de API de NewsAPI
-// Obtén tu clave gratuita en: https://newsapi.org/
 const NEWS_API_KEY = 'c5210701b4454b5096c6487d77c43478';
 const NEWS_API_URL = 'https://newsapi.org/v2/everything';
 let news = [];
