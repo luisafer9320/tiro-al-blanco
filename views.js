@@ -44,10 +44,10 @@
 
 // views.js
 
-import { game } from './features/core/game.js';
-import { getBestScores } from "./features/core/storage.js";
+import { game } from './script/features/core/game.js';
+//import { getBestScores } from "./features/core/storage.js";
 
-export class Views {
+/*export class Views {
   constructor(root) {
     if (!(root instanceof HTMLElement)) {
       throw new Error("Views requiere un elemento <main> válido");
@@ -69,11 +69,8 @@ export class Views {
   async showLoading() {
     await this.loadFragment("./pages/loading.html");
   }
-}
+}*/
 
-
-
-// Elementos del DOM cacheados
 const screens = {
     start: document.getElementById('startScreen'),
     game: document.getElementById('gameScreen'),
@@ -107,33 +104,30 @@ export function switchScreen(screenKey) {
 
 // Actualizar HUD del juego
 export function updateHUD(score, time) {
-    if (hud.score) hud.score.textContent = score;
-    if (hud.time) hud.time.textContent = time;
+    hud.score.textContent = score;
+    hud.time.textContent = time;
 }
 
 // Mostrar pantalla de fin de juego
 export function showGameOver(score, hits, accuracy) {
-    switchScreen('gameOver');
     elements.finalScore.textContent = score;
     elements.finalHits.textContent = hits;
     elements.finalPrecision.textContent = `${accuracy}%`;
+    switchScreen('gameOver');
 }
 
 // Inicializar todos los eventos de la UI
 export function initViewListeners() {
+
     // Selección de nivel
     const levelButtons = document.querySelectorAll('.level-btn');
-    console.log('Botones de nivel encontrados:', levelButtons.length);
-    
+
     levelButtons.forEach(btn => {
         btn.addEventListener('click', (e) => {
-            console.log('Click en nivel:', e.currentTarget.dataset.level);
             levelButtons.forEach(b => b.classList.remove('selected'));
             e.currentTarget.classList.add('selected');
             selectedLevel = parseInt(e.currentTarget.dataset.level);
-            console.log('Nivel seleccionado:', selectedLevel);
             elements.startBtn.disabled = false;
-            console.log('Botón JUGAR habilitado');
         });
     });
 
@@ -143,22 +137,16 @@ export function initViewListeners() {
         game.startGame(selectedLevel);
     });
 
-    // Botón PAUSA
+    // Botón PAUSA (corregido)
     elements.pauseBtn?.addEventListener('click', () => {
-        console.log("¡Clic detectado en el botón de pausa!");
-        
-        if (game.isPlaying) {
-            game.pauseGame();
-            switchScreen('pause');
-        } else {
-            console.log("El juego no está en estado 'playing', por eso no se ejecuta la pausa.");
-        }
+        game.pauseGame();
+        switchScreen('pause');
     });
 
     // Botón REANUDAR
     elements.resumeBtn?.addEventListener('click', () => {
-        game.resumeGame();
         switchScreen('game');
+        game.resumeGame();
     });
 
     // Botón SALIR de pausa
@@ -167,7 +155,7 @@ export function initViewListeners() {
         switchScreen('start');
     });
 
-    // Botón JUGAR DE NUEVO
+    // Botón JUGAR DE NUEVO (corregido)
     elements.restartBtn?.addEventListener('click', () => {
         switchScreen('game');
         game.restart();
