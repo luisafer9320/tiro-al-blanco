@@ -1,21 +1,39 @@
-import { getDailyWinner } from "../features/core/storage.js";
+/*import { getDailyWinner } from '../features/core/storage.js';
 
-export const updateDailyWinnerView = () => {
+export function updateDailyWinnerView() {
     const winner = getDailyWinner();
 
-    const nameEl = document.getElementById("dailyWinnerName");
-    const scoreEl = document.getElementById("dailyWinnerScore");
+    const nameEl = document.getElementById('dailyWinnerName');
+    const scoreEl = document.getElementById('dailyWinnerScore');
 
     if (!nameEl || !scoreEl) return;
 
     if (!winner) {
-        nameEl.textContent = "@NoPlayersYet";
-        scoreEl.textContent = "0 Hits";
+        nameEl.textContent = '@Unknown';
+        scoreEl.textContent = '0 pts';
         return;
     }
 
-    const username = `Player_L${winner.level}`;
+    nameEl.textContent = winner.name;
+    scoreEl.textContent = `${winner.score} pts`;
+}
+*/
+import { getDailyWinner } from '../features/core/storage.js';
 
-    nameEl.textContent = username;
-    scoreEl.textContent = `${winner.score} Hits`;
-};
+export function updateDailyWinnerView() {
+    const winner = getDailyWinner();
+
+    const nameEl = document.getElementById('dailyWinnerName');
+    const scoreEl = document.getElementById('dailyWinnerScore');
+
+    if (!nameEl || !scoreEl) return;
+
+    if (!winner) {
+        nameEl.textContent = '@Unknown';
+        scoreEl.textContent = '0 pts';
+        return;
+    }
+
+    nameEl.textContent = winner.name;
+    scoreEl.textContent = `${winner.score} pts`;
+}

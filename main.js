@@ -1,86 +1,13 @@
-// Punto de entrada principal del juego
-
-/*import { startGame } from './features/core/game.js';*/
-
-
-/*document.addEventListener('DOMContentLoaded', () => {
-  startGame();
-});*/
-
-/*const root = document.querySelector("main");
-const view = new Views(root);
-
-view.showLoading();
-
-console.log(root);*/
-
-/*const root = document.querySelector("main");
-const view = new Views(root);
-
-view.showLoading();*/
-
-// main.js
-
-//import { Views } from "./views.js";
-
-// main.js
-
-// Captura errores globales ANTES de cargar nada
-// main.js
-
-/*(async function bootstrap() {
-  const path = location.pathname;
-  const isRoot = path === "/" || path.endsWith("/index.html");
-  const isErrorPage = path.endsWith("/pages/error.html");
-
-  if (!isRoot && !isErrorPage) {
-    location.replace("/index.html");
-    return;
-  }
-
-  try {
-    const { Views } = await import("./views.js");
-
-    const root = document.querySelector("main");
-    const views = new Views(root);
-
-    await views.showLoading();
-
-    try {
-      const gameModule = await import("./game.js");
-
-      if (typeof gameModule.initGame === "function") {
-        await gameModule.initGame({ root, views });
-      } else {
-        throw new Error("initGame() no existe en game.js");
-      }
-
-    } catch (gameError) {
-      console.warn("Error en el juego:", gameError);
-      await views.showLoading();
-      return;
-    }
-
-  } catch (criticalError) {
-    console.error("Error crítico:", criticalError);
-
-    if (!isErrorPage) {
-      location.href = "./pages/error.html";
-    }
-  }
-})();
-
-*/
-
-//await import ("./views.js");
-//import { updateDailyWinnerView }  from './script/UI/score.js';
-
-
 // Punto de entrada de la aplicación
-//import { initViewListeners } from './views.js';
+import { initUsernameFlow, initViewListeners} from './views.js';
+// IMPORTANTE: Ruta corregida apuntando a la carpeta /Sound/
+import { playSound, playBackgroundMusic, pauseBackgroundMusic, toggleMute } from './Sound/sound.js';
+
+initUsernameFlow();
+initViewListeners();
 
 // Gestión de APIs
-/*const APIManager = {
+const APIManager = {
     async getLocation() {
         return new Promise((resolve) => {
             if (navigator.geolocation) {
@@ -124,58 +51,42 @@ async function loadLocationData() {
 document.addEventListener('DOMContentLoaded', () => {
     initViewListeners();
     loadLocationData();
-    // cargarNoticias();  <-- ASEGÚRATE DE QUE ESTO ESTÉ COMENTADO O BORRADO
-});
-*/
 
-
-import { game } from "./script/features/core/game.js";
-import { updateDailyWinnerView } from './script/UI/score.js';
-import { initViewListeners } from './views.js';
-
-
-
-document.addEventListener("DOMContentLoaded", () => {
-
-    // ------------------------------
-    // 1. Selección de nivel
-    // ------------------------------
-    const levelButtons = document.querySelectorAll(".level-btn");
-    const startBtn = document.getElementById("startBtn");
-
-    let selectedLevel = null;
-
-    levelButtons.forEach(btn => {
-        btn.addEventListener("click", () => {
-            selectedLevel = Number(btn.dataset.level);
-
-            levelButtons.forEach(b => b.classList.remove("selected"));
-            btn.classList.add("selected");
-
-            startBtn.disabled = false;
+    // --- LÓGICA DE AUDIO (con comprobación de seguridad) ---
+    
+    // 1. Mute Button
+    const muteBtn = document.getElementById('muteBtn');
+    if (muteBtn) {
+        muteBtn.addEventListener('click', () => {
+            const isMuted = toggleMute();
+            const muteIcon = document.getElementById('muteIcon');
+            if (muteIcon) {
+                muteIcon.className = isMuted ? 'fas fa-volume-mute' : 'fas fa-volume-up';
+            }
         });
-    });
+    }
 
-    // ------------------------------
-    // 2. Iniciar juego
-    // ------------------------------
-    startBtn.addEventListener("click", () => {
-        if (!selectedLevel) return;
+    // 2. Start Game (Inicia música)
+    const startBtn = document.getElementById('startBtn');
+    if (startBtn) {
+        startBtn.addEventListener('click', () => {
+            playBackgroundMusic();
+        });
+    }
 
-        document.getElementById("startScreen").classList.remove("active");
-        document.getElementById("gameScreen").classList.add("active");
+    // 3. Pause Game
+    const pauseBtn = document.getElementById('pauseBtn');
+    if (pauseBtn) {
+        pauseBtn.addEventListener('click', () => {
+            pauseBackgroundMusic();
+        });
+    }
 
-        game.startGame(selectedLevel);
-    });
-
-    // ------------------------------
-    // 3. Inicializar listeners de UI
-    // (pausa, reanudar, salir, reiniciar)
-    // ------------------------------
-    initViewListeners();
-
-    // ------------------------------
-    // 4. Actualizar ranking/daily winner
-    // ------------------------------
-    updateDailyWinnerView();
+    // 4. Resume Game
+    const resumeBtn = document.getElementById('resumeBtn');
+    if (resumeBtn) {
+        resumeBtn.addEventListener('click', () => {
+            playBackgroundMusic();
+        });
+    }
 });

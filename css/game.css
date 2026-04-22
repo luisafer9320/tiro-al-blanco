@@ -2,9 +2,7 @@
    GAME.CSS - Tiro al Blanco de Feria
    ========================================================= */
 
-/* =========================================================
-   ÁREA PRINCIPAL DEL JUEGO
-========================================================= */
+/* Área Principal del Juego */
 .game-area {
     position: relative;
     display: flex;
@@ -17,9 +15,7 @@
     border: 3px solid #b02121;
 }
 
-/* =========================================================
-   TOLDO SUPERIOR
-========================================================= */
+/* TOLDO - Fijo arriba */
 .toldo {
     width: 100%;
     height: 80px;
@@ -51,16 +47,14 @@
     left: 0;
     width: 100%;
     height: 25px;
-    background-image:
+    background-image: 
         radial-gradient(circle at 25px 0, #b02121 25px, transparent 26px),
         radial-gradient(circle at 75px 0, #d1d1d1 25px, transparent 26px);
     background-size: 100px 25px;
     background-repeat: repeat-x;
 }
 
-/* =========================================================
-   CONTENIDO DEL JUEGO
-========================================================= */
+/* Contenido del juego - debajo del toldo */
 .game-content {
     flex: 1;
     position: relative;
@@ -69,9 +63,7 @@
     overflow: hidden;
 }
 
-/* =========================================================
-   PANTALLAS SUPERPUESTAS
-========================================================= */
+/* PANTALLAS */
 .screen {
     position: absolute;
     inset: 0;
@@ -81,16 +73,17 @@
     align-items: center;
     z-index: 20;
     background: rgba(0, 0, 0, 0.85);
+    width: 100%;
+    height: 100%;
 }
 
 .screen.active {
     display: flex;
 }
 
-/* =========================================================
-   PANTALLA DE INICIO
-========================================================= */
+/* PANTALLA DE INICIO */
 #startScreen {
+    /* Gradiente de azul claro a verde claro */
     background: linear-gradient(180deg, #86CDEA 0%, #90EE90 100%);
 }
 
@@ -99,11 +92,9 @@
     width: 85%;
     max-width: 320px;
     padding: 30px 25px;
-    background: #fff;
+    background: #ffffff;
     border-radius: 24px;
-    box-shadow: 
-        0 10px 40px rgba(0, 0, 0, 0.15),
-        0 0 0 1px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15), 0 0 0 1px rgba(0, 0, 0, 0.05);
 }
 
 #startScreen h2 {
@@ -200,9 +191,7 @@
     cursor: not-allowed;
 }
 
-/* =========================================================
-   PANTALLA DE JUEGO
-========================================================= */
+/* PANTALLA DE JUEGO */
 #gameScreen {
     background: transparent;
     justify-content: flex-start;
@@ -227,9 +216,49 @@
     font-size: 1.1rem;
 }
 
-/* =========================================================
-   BOTÓN DE PAUSA
-========================================================= */
+/* Botón PAUSA */
+.pause-floating {
+    position: absolute;
+    bottom: 15px;
+    right: 15px;
+    background: #e63946;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 0.9rem;
+    z-index: 25;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.3);
+}
+
+.pause-floating:hover {
+    background: #ff3d3d;
+}
+
+/* #gameCanvas - Estilo definitivo */
+#gameCanvas {
+    flex: 1;
+    position: relative;
+    width: 100%;
+    height: 350px;
+    min-height: 300px;
+    /* Gradiente fijo: Azul a Verde */
+    background: linear-gradient(180deg, #87CEEB 0%, #B0E0E6 45%, #90EE90 45%);
+    overflow: hidden;
+    cursor: crosshair;
+}
+
+/* PATO AMARILLO */
+#gameCanvas {
+    width: 100%;
+    height: 350px;
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(180deg, #87CEEB 0%, #B0E0E6 45%, #90EE90 45%);
+}
+/*    BOTÓN DE PAUSA*/
 .pause-floating {
     position: absolute;
     top: 10px;
@@ -242,28 +271,7 @@
     cursor: pointer;
     z-index: 99999;
 }
-
-.pause-floating:hover {
-    background: #ffdb4d;
-}
-
-/* =========================================================
-   CANVAS DEL JUEGO
-========================================================= */
-#gameCanvas {
-    flex: 1;
-    width: 100%;
-    height: 350px;
-    min-height: 300px;
-    position: relative;
-    overflow: hidden;
-    cursor: crosshair;
-    background: linear-gradient(180deg, #87CEEB 0%, #B0E0E6 45%, #90EE90 45%);
-}
-
-/* =========================================================
-   PATO REALISTA
-========================================================= */
+/*    PATO REALISTA*/
 .duck {
     position: absolute;
     cursor: crosshair;
@@ -272,7 +280,6 @@
     z-index: 10;
     transition: transform 0.1s;
 }
-
 /* Cuerpo */
 .duck::before {
     content: '';
@@ -287,7 +294,6 @@
         inset -5px -5px 10px rgba(0,0,0,0.2),
         2px 2px 5px rgba(0,0,0,0.3);
 }
-
 /* Cabeza */
 .duck::after {
     content: '';
@@ -300,7 +306,6 @@
     left: 30px;
     box-shadow: 1px 1px 3px rgba(0,0,0,0.3);
 }
-
 /* Ojo */
 .duck .eye {
     position: absolute;
@@ -310,8 +315,8 @@
     border-radius: 50%;
     top: 8px;
     left: 42px;
+    z-index: 20;
 }
-
 .duck .eye::after {
     content: '';
     position: absolute;
@@ -322,7 +327,6 @@
     top: 1px;
     left: 1px;
 }
-
 /* Pico */
 .duck .beak {
     position: absolute;
@@ -332,8 +336,8 @@
     border-radius: 0 50% 50% 50%;
     top: 16px;
     left: 48px;
+    z-index: 20;
 }
-
 /* Ala */
 .duck .wing {
     position: absolute;
@@ -343,29 +347,26 @@
     border-radius: 50%;
     top: 20px;
     left: 15px;
+    z-index: 15;
 }
-
-/* =========================================================
+/* ============================
    ANIMACIONES
-========================================================= */
+============================ */
 .animate-right {
     animation: moveRight linear forwards;
 }
-
 .animate-left {
     animation: moveLeft linear forwards;
 }
-
 @keyframes moveRight {
     from { left: -80px; }
     to { left: 110%; }
 }
-
 @keyframes moveLeft {
     from { left: 110%; }
     to { left: -80px; }
 }
-
+/* Impacto */
 .duck.hit {
     transform: scale(0) rotate(180deg);
     opacity: 0;
@@ -373,9 +374,7 @@
     transition: all 0.3s;
 }
 
-/* =========================================================
-   PANTALLA DE PAUSA
-========================================================= */
+/* PANTALLA DE PAUSA */
 #pauseScreen {
     background: rgba(0, 0, 0, 0.9);
     z-index: 100;
@@ -407,9 +406,7 @@
     color: #fff;
 }
 
-/* =========================================================
-   PANTALLA DE GAME OVER
-========================================================= */
+/* PANTALLA DE GAME OVER */
 #gameOverScreen {
     background: rgba(0, 0, 0, 0.9);
 }
@@ -443,18 +440,93 @@
     cursor: pointer;
 }
 
-/* =========================================================
-   GRID DE INFORMACIÓN
-========================================================= */
 .info-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    /* Esto crea 3 columnas iguales si hay espacio */
+    grid-template-columns: repeat(3, 1fr); 
     gap: 20px;
     padding: 20px;
 }
 
+/* Opcional: Para que en móviles se apilen */
 @media (max-width: 768px) {
     .info-grid {
         grid-template-columns: 1fr;
     }
+}
+/* =========================================================
+   ESTILO MEJORADO DEL BOTÓN DE SONIDO (#muteBtn)
+   ========================================================= */
+#muteBtn {
+    /* Fondo tipo 'cristal' oscuro y semi-transparente */
+    background: rgba(255, 255, 255, 0.1);
+    
+    /* Borde sutil */
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    
+    /* Forma redondeada y suave */
+    border-radius: 12px;
+    
+    /* Color del icono (blanco) */
+    color: #ffffff;
+    
+    /* Tamaño del icono */
+    font-size: 1.1rem;
+    
+    /* Espaciado interno para darle forma de botón */
+    padding: 8px 14px;
+    
+    /* Cursor de mano */
+    cursor: pointer;
+    
+    /* Alineación perfecta dentro del Flexbox de la barra */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    /* Sombra suave para darle profundidad */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    
+    /* Preparar la transición para las animaciones */
+    transition: all 0.3s ease;
+    
+    /* Margen para separarlo un poco del texto de Tiempo */
+    margin-left: 15px;
+}
+
+/* --- EFECTO AL PASAR EL RATÓN (HOVER) --- */
+#muteBtn:hover {
+    /* Fondo un poco más claro al hacer hover */
+    background: rgba(255, 255, 255, 0.2);
+    
+    /* Pequeño aumento de tamaño */
+    transform: scale(1.05) translateY(-1px);
+    
+    /* Sombra más pronunciada al elevarse */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+    
+    /* El borde se ilumina un poco con el rojo principal */
+    border-color: rgba(230, 57, 70, 0.5);
+}
+
+/* --- EFECTO AL HACER CLIC (ACTIVE) --- */
+#muteBtn:active {
+    /* Vuelve a su tamaño original y la sombra se reduce (efecto 'pulsado') */
+    transform: scale(0.98) translateY(1px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    
+    /* El fondo se vuelve un poco más oscuro */
+    background: rgba(0, 0, 0, 0.2);
+}
+
+/* Asegurar que el icono (i) dentro del botón no tenga márgenes raros */
+#muteBtn #muteIcon {
+    margin: 0;
+    line-height: 1;
+}
+/* 3. Ajuste para que los textos no se peguen */
+.control-item {
+    display: flex;
+    gap: 8px; /* Separa la palabra "Puntos:" del valor numérico */
+    align-items: center;
 }

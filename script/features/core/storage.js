@@ -1,62 +1,10 @@
-// Guardado en LocalStorage
+// storage.js
 
-/*export function saveState(key, value) {
-  localStorage.setItem(key, JSON.stringify(value));
-}*/
-/*const STORAGE_KEY = "tiro-al-blanco-scores";
+// 🔥 Ya no dependemos de constants.js
+/*const STORAGE_KEY = 'carnival-ducks-storage';
+const PLAYER_KEY = 'carnival-ducks-player';
 
-export const saveScore = (levelId, score) => {
-  try{
-    const basic = localStorage.getItem(STORAGE_KEY);
-    const data = basic ? JSON.parse(basic) : {};
-    const current = data[levelId] || 0;
-    if (score > current) {
-      data[levelId] = score;
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
-  }
-  } catch (err) {
-    console.warn("No se pudo guardar el puntaje:", err.message);
-  }
-};
-
-export const getBestScores = () => {
-  try {
-    const basic = localStorage.getItem(STORAGE_KEY);
-    return basic ? JSON.parse(basic) : {};
-  } catch {
-    return {};
-  }
-};
-
-saveScore("nivel1", 100);
-saveScore("nivel1", 30); 
-saveScore("nivel1", 90); 
-saveScore("nivel2", 50);
-saveScore("nivel2", 70);
-
-console.log(getBestScores());*/
-
-// storage.js — Manejo de mejores puntajes por nivel
-
-const STORAGE_KEY = "tiro-al-blanco-scores";
-
-export const saveScore = (levelId, score) => {
-  try {
-    const raw = localStorage.getItem(STORAGE_KEY);
-    const data = raw ? JSON.parse(raw) : {};
-
-    const previousBest = data[levelId] || 0;
-
-    if (score > previousBest) {
-      data[levelId] = score;
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
-    }
-  } catch (err) {
-    console.warn("No se pudo guardar el puntaje:", err.message);
-  }
-};
-
-export const getBestScores = () => {
+const read = () => {
   try {
     const raw = localStorage.getItem(STORAGE_KEY);
     return raw ? JSON.parse(raw) : {};
@@ -65,19 +13,122 @@ export const getBestScores = () => {
   }
 };
 
-// Devuelve el mejor puntaje global
+const write = (data) => {
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+  } catch (err) {
+    console.warn('[Storage] Write failed:', err.message);
+  }
+};
+
+export const saveScore = (levelId, score) => {
+  const data    = read();
+  const current = data[levelId]?.score ?? 0;
+
+  if (score > current) {
+    write({
+      ...data,
+      [levelId]: { score, name: getPlayerName() ?? 'Player' }
+    });
+  }
+};
+
+export const getBestScores = () => read();
+
 export const getDailyWinner = () => {
+  const entries = Object.entries(read()).map(([level, entry]) => ({
+    level: Number(level),
+    score: typeof entry === 'number' ? entry : entry.score,
+    name: typeof entry === 'number' ? 'Player' : entry.name,
+  }));
+
+  if (entries.length === 0) return null;
+
+  return entries.sort((a, b) => b.score - a.score)[0];
+};
+
+export const savePlayerName = (name) => {
+  try {
+    localStorage.setItem(PLAYER_KEY, name.trim().slice(0, 20));
+  } catch {}
+};
+
+/export const getPlayerName = () => {
+  try {
+    return localStorage.getItem(PLAYER_KEY) || null;
+  } catch {
+    return null;
+  }
+};
+/
+export const getPlayerName = () => {
+  try {
+    const name = localStorage.getItem(PLAYER_KEY);
+    return name && name.trim().length > 0 ? name : null;
+  } catch {
+    return null;
+  }
+};
+*/
+
+// storage.js
+
+const STORAGE_KEY = 'carnival-ducks-storage';
+const PLAYER_KEY = 'carnival-ducks-player';
+
+const read = () => {
   try {
     const raw = localStorage.getItem(STORAGE_KEY);
-    if (!raw) return null;
+    return raw ? JSON.parse(raw) : {};
+  } catch {
+    return {};
+  }
+};
 
-    const data = JSON.parse(raw);
+const write = (data) => {
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+  } catch (err) {
+    console.warn('[Storage] Write failed:', err.message);
+  }
+};
 
-    const entries = Object.entries(data)
-      .map(([level, score]) => ({ level: Number(level), score }))
-      .sort((a, b) => b.score - a.score);
+export const saveScore = (levelId, score) => {
+  const data    = read();
+  const current = data[levelId]?.score ?? 0;
 
-    return entries.length > 0 ? entries[0] : null;
+  if (score > current) {
+    write({
+      ...data,
+      [levelId]: { score, name: getPlayerName() ?? 'Player' }
+    });
+  }
+};
+
+export const getBestScores = () => read();
+
+export const getDailyWinner = () => {
+  const entries = Object.entries(read()).map(([level, entry]) => ({
+    level: Number(level),
+    score: typeof entry === 'number' ? entry : entry.score,
+    name: typeof entry === 'number' ? 'Player' : entry.name,
+  }));
+
+  if (entries.length === 0) return null;
+
+  return entries.sort((a, b) => b.score - a.score)[0];
+};
+
+export const savePlayerName = (name) => {
+  try {
+    localStorage.setItem(PLAYER_KEY, name.trim().slice(0, 20));
+  } catch {}
+};
+
+export const getPlayerName = () => {
+  try {
+    const name = localStorage.getItem(PLAYER_KEY);
+    return name && name.trim().length > 0 ? name : null;
   } catch {
     return null;
   }

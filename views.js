@@ -1,76 +1,44 @@
-// Actualiza el HUD (puntos/reloj) en el DOM
-
-/*export function updateHUD(score, time) {
-  const scoreEl = document.querySelector('#score');
-  const timeEl = document.querySelector('#time');
-  if (scoreEl) scoreEl.textContent = score;
-  if (timeEl) timeEl.textContent = time;
-}
-*/
-
-// views.js
-/*export class Views {
-  constructor(root) {
-    this.root = root;
-  }
-
-  async loadHtml(path, isErrorPage = false) {
-    try {
-      const response = await fetch(path);
-
-      if (!response.ok) {
-        throw new Error();
-      }
-
-      const html = await response.text();
-      this.root.innerHTML = html;
-
-    } catch (_) {
-      // Si ya estamos intentando cargar error.html, no volvemos a intentarlo
-      if (!isErrorPage) {
-        this.showError();
-      }
-    }
-  }
-
-  showLoading() {
-    this.loadHtml("./pages/loading.html");
-  }
-
-  showError() {
-    this.loadHtml("./pages/error.html", true);
-  }
-}*/
-
-// views.js
-
 import { game } from './script/features/core/game.js';
-//import { getBestScores } from "./features/core/storage.js";
+import { updateDailyWinnerView } from './script/UI/score.js';
+import { savePlayerName, getPlayerName } from './script/features/core/storage.js';
 
-/*export class Views {
-  constructor(root) {
-    if (!(root instanceof HTMLElement)) {
-      throw new Error("Views requiere un elemento <main> válido");
+export function initUsernameFlow() {
+  const nameScreen  = document.getElementById('nameScreen');
+  const startScreen = document.getElementById('startScreen');
+  const nameInput   = document.getElementById('playerNameInput');
+  const nameForm    = document.getElementById('nameForm');
+  const nameError   = document.getElementById('nameError');
+
+  // If already named, go straight to start
+  if (getPlayerName()) {
+    nameScreen?.classList.remove('active');
+    startScreen?.classList.add('active');
+    return;
+  }
+
+  // Show name screen
+  nameScreen?.classList.add('active');
+  startScreen?.classList.remove('active');
+  nameInput?.focus();
+
+  nameForm?.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const value = nameInput?.value.trim() ?? '';
+
+    if (value.length < 2) {
+      if (nameError) nameError.textContent = 'El nombre debe tener al menos 2 caracteres.';
+      nameInput?.focus();
+      return;
     }
-    this.root = root;
-  }
 
-  async loadFragment(path) {
-    const response = await fetch(path, { cache: "no-store" });
+    savePlayerName(value);
+    nameScreen?.classList.remove('active');
+    startScreen?.classList.add('active');
+    updateDailyWinnerView();
+  });
+}
 
-    if (!response.ok) {
-      throw new Error(`No se pudo cargar la vista: ${path}`);
-    }
-
-    const html = await response.text();
-    this.root.innerHTML = html;
-  }
-
-  async showLoading() {
-    await this.loadFragment("./pages/loading.html");
-  }
-}*/
-
+// Elementos del DOM cacheados
 const screens = {
     start: document.getElementById('startScreen'),
     game: document.getElementById('gameScreen'),
@@ -104,30 +72,43 @@ export function switchScreen(screenKey) {
 
 // Actualizar HUD del juego
 export function updateHUD(score, time) {
-    hud.score.textContent = score;
-    hud.time.textContent = time;
+    if (hud.score) hud.score.textContent = score;
+    if (hud.time) hud.time.textContent = time;
 }
 
 // Mostrar pantalla de fin de juego
 export function showGameOver(score, hits, accuracy) {
+    switchScreen('gameOver');
     elements.finalScore.textContent = score;
     elements.finalHits.textContent = hits;
     elements.finalPrecision.textContent = `${accuracy}%`;
-    switchScreen('gameOver');
 }
 
 // Inicializar todos los eventos de la UI
 export function initViewListeners() {
-
-    // Selección de nivel
+    // Verificar que los elementos existen
+    const startScreen = document.getElementById('startScreen');
     const levelButtons = document.querySelectorAll('.level-btn');
-
+    const startBtn = document.getElementById('startBtn');
+    
+    console.log('startScreen:', startScreen ? 'existe' : 'NO EXISTE');
+    console.log('Botones de nivel encontrados:', levelButtons.length);
+    console.log('startBtn:', startBtn ? 'existe' : 'NO EXISTE');
+    
+    if (levelButtons.length === 0) {
+        console.error('ERROR: No se encontraron botones de nivel');
+        return;
+    }
+    
     levelButtons.forEach(btn => {
         btn.addEventListener('click', (e) => {
+            console.log('Click en nivel:', e.currentTarget.dataset.level);
             levelButtons.forEach(b => b.classList.remove('selected'));
             e.currentTarget.classList.add('selected');
             selectedLevel = parseInt(e.currentTarget.dataset.level);
+            console.log('Nivel seleccionado:', selectedLevel);
             elements.startBtn.disabled = false;
+            console.log('Botón JUGAR habilitado');
         });
     });
 
@@ -137,16 +118,22 @@ export function initViewListeners() {
         game.startGame(selectedLevel);
     });
 
-    // Botón PAUSA (corregido)
+    // Botón PAUSA
     elements.pauseBtn?.addEventListener('click', () => {
-        game.pauseGame();
-        switchScreen('pause');
+        console.log("¡Clic detectado en el botón de pausa!");
+        
+        if (game.isPlaying) {
+            game.pauseGame();
+            switchScreen('pause');
+        } else {
+            console.log("El juego no está en estado 'playing', por eso no se ejecuta la pausa.");
+        }
     });
 
     // Botón REANUDAR
     elements.resumeBtn?.addEventListener('click', () => {
-        switchScreen('game');
         game.resumeGame();
+        switchScreen('game');
     });
 
     // Botón SALIR de pausa
@@ -155,7 +142,7 @@ export function initViewListeners() {
         switchScreen('start');
     });
 
-    // Botón JUGAR DE NUEVO (corregido)
+    // Botón JUGAR DE NUEVO
     elements.restartBtn?.addEventListener('click', () => {
         switchScreen('game');
         game.restart();

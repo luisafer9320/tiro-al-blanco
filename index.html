@@ -16,72 +16,77 @@
 
 <body>
 
-    <!-- HEADER + NAV -->
-    <header>
-        <nav class="game-nav">
-            <a href="#" class="nav-logo">
-                <img src="assets/logo.png" alt="Logo" />
-            </a>
+    <nav class="game-nav">
+        <a href="#" class="nav-logo">
+            <img src="assets/logo.png" alt="Logo" />
+        </a>
+        <a href="https://adriasu09.github.io/landing-Carnival/#games" class="nav-item" target="_blank" rel="noopener">
+            <i class="fas fa-home"></i><span>Home</span>
+        </a>
+        <a href="#" class="nav-item active">
+            <i class="fas fa-crosshairs"></i><span>Jugar</span>
+        </a>
+        <a href="#" class="nav-item">
+            <i class="fas fa-trophy"></i><span>Ranking</span>
+        </a>
+        <a href="#" class="nav-item">
+            <i class="fas fa-cog"></i><span>Ajustes</span>
+        </a>
+    </nav>
 
-            <a href="https://adriasu09.github.io/landing-Carnival/#games" class="nav-item" target="_blank">
-                <i class="fas fa-home"></i><span>Home</span>
-            </a>
-
-            <a href="#" class="nav-item active">
-                <i class="fas fa-crosshairs"></i><span>Jugar</span>
-            </a>
-
-            <a href="#" class="nav-item">
-                <i class="fas fa-trophy"></i><span>Ranking</span>
-            </a>
-
-            <a href="#" class="nav-item">
-                <i class="fas fa-cog"></i><span>Ajustes</span>
-            </a>
-        </nav>
-    </header>
-
-    <!-- MAIN GAME AREA -->
     <main class="game-area">
-
         <div class="toldo">
             <div class="rayas"></div>
         </div>
 
         <div class="game-content">
 
-            <!-- PANTALLA DE INICIO -->
-            <section id="startScreen" class="screen active" role="dialog" aria-modal="true">
+            <section id="nameScreen" class="screen active" role="dialog" aria-modal="true" aria-labelledby="nameTitle">
+                <div class="name-card">
+                    <div class="name-card__duck" aria-hidden="true">🦆</div>
+                    <h2 class="name-card__title" id="nameTitle">¿Cómo te llamas?</h2>
+                    <p class="name-card__sub">Tu nombre aparecerá en el Daily Winner</p>
+                    <form id="nameForm" class="name-card__form" novalidate>
+                        <input type="text" id="playerNameInput" class="name-card__input"
+                            placeholder="Tu nombre o alias…" maxlength="20" autocomplete="off"
+                            aria-label="Introduce tu nombre" required />
+                        <p class="name-card__error" id="nameError" role="alert" aria-live="polite"></p>
+                        <button type="submit" class="play-btn">Continuar →</button>
+                    </form>
+                </div>
+            </section>
+
+            <div id="startScreen" class="screen">
                 <div class="level-select">
                     <h2>ELIGE TU NIVEL</h2>
-
                     <div class="level-buttons">
                         <button class="level-btn level-1" data-level="1">
                             <span class="level-number">1</span>
                             <span class="level-name">Principiante</span>
                         </button>
-
                         <button class="level-btn level-2" data-level="2">
                             <span class="level-number">2</span>
                             <span class="level-name">Intermedio</span>
                         </button>
-
                         <button class="level-btn level-3" data-level="3">
                             <span class="level-number">3</span>
                             <span class="level-name">Experto</span>
                         </button>
                     </div>
-
                     <button class="play-btn" id="startBtn" disabled>JUGAR</button>
                 </div>
-            </section>
+            </div>
 
-            <!-- PANTALLA DE JUEGO -->
-            <section id="gameScreen" class="screen">
-
+            <div id="gameScreen" class="screen">
                 <div class="game-controls">
                     <div class="control-item">PUNTOS: <span class="value" id="score">0</span></div>
                     <div class="control-item">TIEMPO: <span class="value time-value" id="time">45</span></div>
+                    <div class="control-item">
+                        <button id="muteBtn" aria-label="Silenciar sonido"
+                            style="cursor:pointer; background:none; border:none; color:white; font-size: 1.2rem;">
+                            <i class="fas fa-volume-up" id="muteIcon"></i>
+                        </button>
+                    </div>
                 </div>
 
                 <div id="gameCanvas">
@@ -90,62 +95,54 @@
                         <span class="text">PAUSA</span>
                     </button>
                 </div>
+            </div>
 
-                <!-- PAUSA -->
-                <section id="pauseScreen" class="screen" role="dialog" aria-modal="true">
-                    <h2>JUEGO PAUSADO</h2>
-                    <button id="resumeBtn">REANUDAR</button>
-                    <button id="exitPauseBtn">SALIR</button>
-                </section>
+            <div id="pauseScreen" class="screen">
+                <h2>JUEGO PAUSADO</h2>
+                <button id="resumeBtn">REANUDAR</button>
+                <button id="exitPauseBtn">SALIR</button>
+            </div>
 
-                <!-- GAME OVER -->
-                <section id="gameOverScreen" class="screen" role="dialog" aria-modal="true">
-                    <h2>GAME OVER</h2>
-                    <p>Puntos: <span id="finalScore">0</span></p>
-                    <p>Aciertos: <span id="finalHits">0</span></p>
-                    <p>Precisión: <span id="finalPrecision">0%</span></p>
-                    <button id="restartBtn">JUGAR DE NUEVO</button>
-                </section>
-
-            </section>
+            <div id="gameOverScreen" class="screen">
+                <h2>GAME OVER</h2>
+                <p>Puntos: <span id="finalScore">0</span></p>
+                <p>Aciertos: <span id="finalHits">0</span></p>
+                <p>Precisión: <span id="finalPrecision">0%</span></p>
+                <button id="restartBtn">JUGAR DE NUEVO</button>
+            </div>
 
         </div>
     </main>
 
-    <!-- INFO SECTION -->
     <section class="info-section">
         <div class="info-grid">
-
             <article class="card">
                 <span class="card-label">LOCATION</span>
                 <h3>Madrid</h3>
                 <span class="card-sub-info">Spain District</span>
             </article>
 
-            <article class="card" id="daily-winner-card">
-                <span class="card-label">DAILY WINNER</span>
+            <article class="card" aria-label="Ganador del día">
+                <span class="card-label">Daily Winner</span>
                 <h3 id="dailyWinnerName">@Unknown</h3>
                 <span class="card-sub-info" id="dailyWinnerScore">0 Hits</span>
             </article>
 
             <article class="card" id="news-section">
                 <span class="card-label">TITULARES</span>
-                <div id="news-container"></div>
+                <div id="news-container">
+                </div>
             </article>
-
         </div>
     </section>
 
-    <!-- FOOTER -->
     <footer>
-
         <nav class="footer-nav">
             <button type="button" aria-label="Inicio"><i class="fas fa-home"></i><br>INICIO</button>
             <button type="button" aria-label="Idiomas"><i class="fas fa-globe"></i><br>IDIOMAS</button>
             <button type="button" aria-label="Juegos"><i class="fas fa-gamepad"></i><br>JUEGOS</button>
             <button type="button" aria-label="Perfil"><i class="fas fa-user"></i><br>PERFIL</button>
         </nav>
-
         <div class="nav-footer">
             <div class="legal-links">
                 <a href="#">Condiciones de uso</a>
@@ -154,7 +151,6 @@
             </div>
             <p>&copy; 2026 Tiro al Blanco • <strong>FemCoders</strong></p>
         </div>
-
     </footer>
 
     <script src="main.js" type="module"></script>
