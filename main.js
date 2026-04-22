@@ -22,6 +22,42 @@ import { playSound, playBackgroundMusic, pauseBackgroundMusic, toggleMute } from
 initUsernameFlow();
 initViewListeners();
 
+document.addEventListener('DOMContentLoaded', () => {
+    initViewListeners();
+    //loadLocationData();
+
+    const muteBtn = document.getElementById('muteBtn');
+    if (muteBtn) {
+        muteBtn.addEventListener('click', () => {
+            const isMuted = toggleMute();
+            const muteIcon = document.getElementById('muteIcon');
+            if (muteIcon) {
+                muteIcon.className = isMuted ? 'fas fa-volume-mute' : 'fas fa-volume-up';
+            }
+        });
+    }
+
+    const startBtn = document.getElementById('startBtn');
+    if (startBtn) {
+        startBtn.addEventListener('click', () => {
+            playBackgroundMusic();
+        });
+    }
+
+    const pauseBtn = document.getElementById('pauseBtn');
+    if (pauseBtn) {
+        pauseBtn.addEventListener('click', () => {
+            pauseBackgroundMusic();
+        });
+    }
+
+    const resumeBtn = document.getElementById('resumeBtn');
+    if (resumeBtn) {
+        resumeBtn.addEventListener('click', () => {
+            playBackgroundMusic();
+        });
+    }
+});
 
 // Gestión de APIs
 /*const APIManager = {
@@ -63,40 +99,3 @@ async function loadLocationData() {
         }
     }
 }*/
-
-/*document.addEventListener('DOMContentLoaded', () => {
-    initViewListeners();
-    loadLocationData();
-
-    const muteBtn = document.getElementById('muteBtn');
-    if (muteBtn) {
-        muteBtn.addEventListener('click', () => {
-            const isMuted = toggleMute();
-            const muteIcon = document.getElementById('muteIcon');
-            if (muteIcon) {
-                muteIcon.className = isMuted ? 'fas fa-volume-mute' : 'fas fa-volume-up';
-            }
-        });
-    }
-
-    const startBtn = document.getElementById('startBtn');
-    if (startBtn) {
-        startBtn.addEventListener('click', () => {
-            playBackgroundMusic();
-        });
-    }
-
-    const pauseBtn = document.getElementById('pauseBtn');
-    if (pauseBtn) {
-        pauseBtn.addEventListener('click', () => {
-            pauseBackgroundMusic();
-        });
-    }
-
-    const resumeBtn = document.getElementById('resumeBtn');
-    if (resumeBtn) {
-        resumeBtn.addEventListener('click', () => {
-            playBackgroundMusic();
-        });
-    }
-});*/

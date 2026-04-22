@@ -8,7 +8,6 @@
     padding: 10px 20px 20px 20px;
 }
 
-/* Responsivo: 1 columna en móviles */
 @media (max-width: 650px) {
     #newsContainer {
         grid-template-columns: 1fr;
@@ -17,10 +16,10 @@
 }
 
 .news-card {
-    background: var(--bg-card); /* Fondo oscuro de tu style.css */
-    border-radius: 16px; /* Bordes suaves */
-    overflow: hidden; /* Para que la imagen respete los bordes redondos */
-    border: 1px solid var(--glass); /* Borde sutil estilo cristal */
+    background: var(--bg-card); 
+    border-radius: 16px; 
+    overflow: hidden; 
+    border: 1px solid var(--glass); 
     display: flex;
     flex-direction: column;
     transition: transform var(--transition), box-shadow var(--transition);
@@ -32,6 +31,10 @@
     border-color: rgba(255, 255, 255, 0.1);
 }
 
+#newsContainer .news-card:nth-child(n+3) {
+    display: none !important;
+}
+
 /* Forzar que solo se vean 2 noticias */
 #newsContainer .news-card:nth-child(n+3) {
     display: none !important;
@@ -40,8 +43,8 @@
 /* 1. Imagen pequeña y centrada arriba */
 .news-card-image {
     width: 100%;
-    height: 100px; /* Altura pequeña y fija */
-    object-fit: cover; /* Recorta la imagen para que encaje sin deformarse */
+    height: 100px; 
+    object-fit: cover; 
     border-bottom: 1px solid var(--glass);
 }
 
@@ -50,11 +53,10 @@
     padding: 15px;
     display: flex;
     flex-direction: column;
-    flex-grow: 1; /* Ocupa el espacio restante */
-    justify-content: space-between; /* Separa el título del botón */
+    flex-grow: 1; 
+    justify-content: space-between; 
 }
 
-/* Ocultar elementos innecesarios para un diseño limpio */
 .news-header, 
 .description, 
 .date, 
@@ -62,13 +64,11 @@
     display: none !important;
 }
 
-/* 2. Título (debajo de la imagen) */
 .news-card h3 {
-    font-size: 0.95rem; /* Tamaño elegante y no muy grande */
+    font-size: 0.95rem;
     color: var(--text-white);
     margin-bottom: 12px;
     line-height: 1.3;
-    /* Recorte a 2 líneas para uniformidad */
     display: -webkit-box;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
@@ -78,7 +78,7 @@
 
 /* 3. "Leer más" (debajo del título, estilizado como botón) */
 .news-footer {
-    margin-top: auto; /* Empuja el botón al fondo de la tarjeta */
+    margin-top: auto; 
     text-align: center;
 }
 
@@ -86,7 +86,7 @@
     display: inline-block;
     width: 100%;
     padding: 8px 15px;
-    background-color: var(--primary-red); /* Tu rojo principal */
+    background-color: var(--primary-red);
     color: white !important;
     text-decoration: none !important;
     border-radius: 8px;
@@ -98,12 +98,11 @@
 }
 
 .read-more:hover {
-    background-color: var(--primary-hover); /* Rojo más claro al hover */
+    background-color: var(--primary-hover); 
 }
 
-/* Estados de carga y error estéticos */
 .loading, .error {
-    grid-column: 1 / -1; /* Ocupa todo el ancho del grid */
+    grid-column: 1 / -1; 
     text-align: center;
     padding: 30px;
     color: var(--text-gray);
