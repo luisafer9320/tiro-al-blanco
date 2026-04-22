@@ -1,3 +1,21 @@
+
+window.onerror = function (msg, url, line, col, error) {
+    console.error("Error global capturado:", msg, url, line, col, error);
+    window.location.href = "error.html";
+    return true;
+};
+
+window.addEventListener("error", function (e) {
+    console.error("Error de recurso:", e);
+    window.location.href = "pages/error.html";
+}, true);
+
+// Promesas rechazadas sin catch
+window.addEventListener("unhandledrejection", function (e) {
+    console.error("Promesa sin manejar:", e.reason);
+    window.location.href = "pages/error.html";
+});
+
 // Punto de entrada de la aplicación
 import { initUsernameFlow, initViewListeners} from './views.js';
 // IMPORTANTE: Ruta corregida apuntando a la carpeta /Sound/
@@ -47,7 +65,6 @@ async function loadLocationData() {
         }
     }
 }
-
 // Inicialización centralizada al cargar el DOM
 document.addEventListener('DOMContentLoaded', () => {
     initViewListeners();
