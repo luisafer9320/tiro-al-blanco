@@ -6,6 +6,7 @@ import { playSound, playBackgroundMusic, pauseBackgroundMusic, toggleMute } from
 initUsernameFlow();
 initViewListeners();
 
+
 // Gestión de APIs
 const APIManager = {
     async getLocation() {
