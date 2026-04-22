@@ -6,3 +6,16 @@ export function updateHUD(score, time) {
   if (scoreEl) scoreEl.textContent = score;
   if (timeEl) timeEl.textContent = time;
 }
+
+
+// Botones de DIFICULTAD
+document.querySelectorAll('.btn-difficulty').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+        // Quitar active de todos
+        document.querySelectorAll('.btn-difficulty').forEach(b => {
+            b.classList.remove('active');
+        });
+        // Agregar active al clickeado
+        e.target.classList.add('active');
+    });
+});

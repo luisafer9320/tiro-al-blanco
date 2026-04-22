@@ -1,15 +1,17 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Carnival Ducks | Tiro al Blanco</title>
-    
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
     <link rel="stylesheet" href="css/style.css" />
     <link rel="stylesheet" href="css/game.css" />
 </head>
+
 <body>
 
     <div class="dashboard-container">
@@ -21,7 +23,8 @@
                 </div>
             </div>
 
-            <h1 class="app-title">CARNIVAL<br>DUCKS</h1>
+            <h1 class="app-title">🎯Tiro al Blanco</h1>
+
 
             <div class="location-top">
                 <i class="fas fa-map-marker-alt" aria-hidden="true"></i>
@@ -49,16 +52,34 @@
                     <span>PLAY</span>
                 </button>
             </div>
-            
+
             <div id="gameCanvas"></div>
         </main>
 
         <section class="info-section">
             <div class="info-grid">
                 <article class="card">
-                    <span class="card-label">LOCATION</span>
+
+                    <div class="container">
+                        <h4>UBICACION - CLIMA</h4>
+                        <input type="text" id="ciudad" placeholder="Escribe una ciudad...">
+                        <button id="buscar">Consultar</button>
+
+                        <div id="resultado">
+                            <h2 id="nombre-ciudad"></h2>
+                            <p id="temp"></p>
+                            <p id="desc"></p>
+                        </div>
+                    </div>
+
+
+
+
+                    <button onclick="obtenerUbicacionActual()"></button>
+
+                    <!--<span class="card-label">LOCATION</span>
                     <h3>Madrid</h3>
-                    <span class="card-sub-info">Spain District</span>
+                    <span class="card-sub-info">Spain District</span>-->
                 </article>
 
                 <article class="card">
@@ -88,5 +109,14 @@
     </div>
 
     <script src="js/main.js" type="module"></script>
+    <script src="helpers/utils.js"></script>
+    <script src="features/data/levels.js"></script>
+    <script src="features/components/target.js"></script>
+    <script src="features/core/storage.js"></script>
+    <script src="features/core/game.js"></script>
+    <script src="views.js"></script>
+    <script src="main.js"></script>
+    <script src="apiconnection.js"></script>
 </body>
+
 </html>
