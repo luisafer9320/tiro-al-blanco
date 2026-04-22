@@ -48,23 +48,31 @@ async function obtenerNoticias() {
  * @param {Array} articulos - Array de artículos a mostrar
  */
 function mostrarNoticias(articulos) {
+    console.log('🔍 Buscando contenedor #news-container...');
     const contenedor = document.getElementById('news-container');
     
     if (!contenedor) {
-        console.warn('No se encontró el contenedor de noticias');
+        console.error('❌ NO SE ENCONTRÓ el contenedor #news-container en el HTML');
+        console.log('📋 IDs disponibles:', Array.from(document.querySelectorAll('[id]')).map(el => el.id));
         return;
     }
+
+    console.log('✅ Contenedor encontrado');
 
     // Limpiar contenido anterior
     contenedor.innerHTML = '';
 
     if (articulos.length === 0) {
+        console.warn('⚠️ No hay artículos para mostrar');
         contenedor.innerHTML = '<p style="font-size: 0.9rem; color: #999;">No hay noticias disponibles</p>';
         return;
     }
 
+    console.log(`📄 Mostrando ${articulos.length} noticias`);
+
     // Crear una noticia por cada artículo
-    articulos.forEach((articulo) => {
+    articulos.forEach((articulo, index) => {
+        console.log(`  ${index + 1}. ${articulo.title}`);
         const noticiaHTML = document.createElement('div');
         noticiaHTML.className = 'noticia-item';
         noticiaHTML.innerHTML = `
@@ -79,7 +87,22 @@ function mostrarNoticias(articulos) {
  * Función principal que carga y muestra las noticias
  */
 async function cargarNoticias() {
+    console.log('🚀 Iniciando cargarNoticias...');
+    
+    // Esperar a que el DOM esté completamente listo
+    if (document.readyState === 'loading') {
+        console.log('⏳ Esperando a que el DOM esté listo...');
+        await new Promise(resolve => {
+            document.addEventListener('DOMContentLoaded', resolve, { once: true });
+        });
+    }
+    
+    // Pequeño delay adicional para asegurar que los scripts anteriores han corrido
+    await new Promise(resolve => setTimeout(resolve, 100));
+    
+    console.log('🌐 Obteniendo noticias...');
     const articulos = await obtenerNoticias();
+    console.log(`📰 Se obtuvieron ${articulos.length} artículos`);
     mostrarNoticias(articulos);
 }
 
