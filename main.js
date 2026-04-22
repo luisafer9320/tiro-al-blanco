@@ -25,7 +25,7 @@ initViewListeners();
 
 
 // Gestión de APIs
-const APIManager = {
+/*const APIManager = {
     async getLocation() {
         return new Promise((resolve) => {
             if (navigator.geolocation) {
@@ -63,7 +63,7 @@ async function loadLocationData() {
             if (locEl) locEl.textContent = `${city.toUpperCase()}, ${country.substring(0,2).toUpperCase()}`;
         }
     }
-}
+}*/
 
 document.addEventListener('DOMContentLoaded', () => {
     initViewListeners();
