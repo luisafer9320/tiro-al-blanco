@@ -1,5 +1,4 @@
-// game.js — Lógica principal del juego de tiro al blanco
-// Lógica principal del juego de tiro al blanco
+// game.js
 import { updateHUD, showGameOver } from '../../views.js';
 import { getLevel } from '../../data/levels.js';
 import { playSound } from '../../Sound/sound.js'; // Importamos el sistema de sonido
@@ -122,14 +121,6 @@ export const game = {
     },
 
     // Terminar el juego
-    /*endGame() {
-        this.isPlaying = false;
-        this.stopIntervals();
-        
-        const accuracy = this.shots > 0 ? Math.round((this.hits / this.shots) * 100) : 0;
-        
-        showGameOver(this.score, this.hits, accuracy);
-    },*/
     endGame() {
         this.isPlaying = false;
         this.stopIntervals();
