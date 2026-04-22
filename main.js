@@ -1,5 +1,6 @@
 
-window.onerror = function (msg, url, line, col, error) {
+// CUANDO DETECTA ERROR GLOBAL, REDIRIGE A PÁGINA DE ERROR.HTML
+/*window.onerror = function (msg, url, line, col, error) {
     console.error("Error global capturado:", msg, url, line, col, error);
     window.location.href = "error.html";
     return true;
@@ -14,7 +15,7 @@ window.addEventListener("error", function (e) {
 window.addEventListener("unhandledrejection", function (e) {
     console.error("Promesa sin manejar:", e.reason);
     window.location.href = "pages/error.html";
-});
+});*/
 
 // Punto de entrada de la aplicación
 import { initUsernameFlow, initViewListeners} from './views.js';

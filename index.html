@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="css/style.css" />
     <link rel="stylesheet" href="css/game.css" />
     <link rel="icon" href="assets/logo.png" />
+    <link rel="stylesheet" href="css/news.css" />
 </head>
 
 <body>
@@ -116,29 +117,29 @@
     <section class="info-section">
         <div class="info-grid">
             <article class="card">
-               <!-- <span class="card-label">LOCATION</span>
+                <!-- <span class="card-label">LOCATION</span>
                 <h3>Madrid</h3>
                 <span class="card-sub-info">Spain District</span>-->
 
-<div class="container">
-        <h4>UBICACION - CLIMA</h4>
-        <input type="text" id="ciudad" placeholder="Escribe una ciudad...">
-        <button id="buscar">Consultar</button>
+                <div class="container">
+                    <h4>UBICACION - CLIMA</h4>
+                    <input type="text" id="ciudad" placeholder="Escribe una ciudad...">
+                    <button id="buscar">Consultar</button>
 
-        <div id="resultado">
-            <h2 id="nombre-ciudad"></h2>
-            <p id="temp"></p>
-            <p id="desc"></p>
-        </div>
-    </div>
-
-
-
-                    
-                    <button onclick="obtenerUbicacionActual()"></button>
+                    <div id="resultado">
+                        <h2 id="nombre-ciudad"></h2>
+                        <p id="temp"></p>
+                        <p id="desc"></p>
+                    </div>
+                </div>
 
 
-                </article>
+
+
+                <button onclick="obtenerUbicacionActual()"></button>
+
+
+            </article>
 
 
             </article>
@@ -151,8 +152,7 @@
 
             <article class="card" id="news-section">
                 <span class="card-label">TITULARES</span>
-                <div id="news-container">
-                </div>
+                <div id="newsContainer"></div>
             </article>
         </div>
     </section>
@@ -173,9 +173,11 @@
             <p>&copy; 2026 Tiro al Blanco • <strong>FemCoders</strong></p>
         </div>
     </footer>
-
-    <script src="main.js" type="module"></script>
+    
     <script src="features/api/api-connection.js"></script>
+    <script src="features/api/noticias.js" defer></script>
+    <script src="main.js" type="module"></script>
+
 </body>
 
 </html>
