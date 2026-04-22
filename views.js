@@ -2,6 +2,7 @@ import { game } from './features/core/game.js';
 import { updateDailyWinnerView } from './features/core/score.js';
 import { savePlayerName, getPlayerName } from './features/core/storage.js';
 
+
 export function initUsernameFlow() {
   const nameScreen  = document.getElementById('nameScreen');
   const startScreen = document.getElementById('startScreen');
