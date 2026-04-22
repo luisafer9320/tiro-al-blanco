@@ -1,4 +1,4 @@
-// storage.js
+// storage.js 
 
 const STORAGE_KEY = 'carnival-ducks-storage';
 const PLAYER_KEY = 'carnival-ducks-player';
