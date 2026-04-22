@@ -117,9 +117,31 @@
     <section class="info-section">
         <div class="info-grid">
             <article class="card">
-                <span class="card-label">LOCATION</span>
+               <!-- <span class="card-label">LOCATION</span>
                 <h3>Madrid</h3>
-                <span class="card-sub-info">Spain District</span>
+                <span class="card-sub-info">Spain District</span>-->
+
+<div class="container">
+        <h4>UBICACION - CLIMA</h4>
+        <input type="text" id="ciudad" placeholder="Escribe una ciudad...">
+        <button id="buscar">Consultar</button>
+
+        <div id="resultado">
+            <h2 id="nombre-ciudad"></h2>
+            <p id="temp"></p>
+            <p id="desc"></p>
+        </div>
+    </div>
+
+
+
+                    
+                    <button onclick="obtenerUbicacionActual()"></button>
+
+
+                </article>
+
+
             </article>
 
             <article class="card" aria-label="Ganador del día">
@@ -154,6 +176,7 @@
     </footer>
 
     <script src="main.js" type="module"></script>
+    <script src="features/api/api-connection.js"></script>
 </body>
 
 </html>
