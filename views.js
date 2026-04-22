@@ -48,9 +48,19 @@ export function showGameOver(score, hits, accuracy) {
 
 // Inicializar todos los eventos de la UI
 export function initViewListeners() {
-    // Selección de nivel
+    // Verificar que los elementos existen
+    const startScreen = document.getElementById('startScreen');
     const levelButtons = document.querySelectorAll('.level-btn');
+    const startBtn = document.getElementById('startBtn');
+    
+    console.log('startScreen:', startScreen ? 'existe' : 'NO EXISTE');
     console.log('Botones de nivel encontrados:', levelButtons.length);
+    console.log('startBtn:', startBtn ? 'existe' : 'NO EXISTE');
+    
+    if (levelButtons.length === 0) {
+        console.error('ERROR: No se encontraron botones de nivel');
+        return;
+    }
     
     levelButtons.forEach(btn => {
         btn.addEventListener('click', (e) => {

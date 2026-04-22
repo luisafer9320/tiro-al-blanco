@@ -1,5 +1,7 @@
 // Punto de entrada de la aplicación
 import { initViewListeners } from './views.js';
+// IMPORTANTE: Ruta corregida apuntando a la carpeta /Sound/
+import { playSound, playBackgroundMusic, pauseBackgroundMusic, toggleMute } from './Sound/sound.js';
 
 // Gestión de APIs
 const APIManager = {
@@ -46,5 +48,42 @@ async function loadLocationData() {
 document.addEventListener('DOMContentLoaded', () => {
     initViewListeners();
     loadLocationData();
-    // cargarNoticias();  <-- ASEGÚRATE DE QUE ESTO ESTÉ COMENTADO O BORRADO
+
+    // --- LÓGICA DE AUDIO (con comprobación de seguridad) ---
+    
+    // 1. Mute Button
+    const muteBtn = document.getElementById('muteBtn');
+    if (muteBtn) {
+        muteBtn.addEventListener('click', () => {
+            const isMuted = toggleMute();
+            const muteIcon = document.getElementById('muteIcon');
+            if (muteIcon) {
+                muteIcon.className = isMuted ? 'fas fa-volume-mute' : 'fas fa-volume-up';
+            }
+        });
+    }
+
+    // 2. Start Game (Inicia música)
+    const startBtn = document.getElementById('startBtn');
+    if (startBtn) {
+        startBtn.addEventListener('click', () => {
+            playBackgroundMusic();
+        });
+    }
+
+    // 3. Pause Game
+    const pauseBtn = document.getElementById('pauseBtn');
+    if (pauseBtn) {
+        pauseBtn.addEventListener('click', () => {
+            pauseBackgroundMusic();
+        });
+    }
+
+    // 4. Resume Game
+    const resumeBtn = document.getElementById('resumeBtn');
+    if (resumeBtn) {
+        resumeBtn.addEventListener('click', () => {
+            playBackgroundMusic();
+        });
+    }
 });

@@ -1,6 +1,7 @@
 // Lógica principal del juego de tiro al blanco
 import { updateHUD, showGameOver } from '../../views.js';
-import { getLevel } from '../data/levels.js';
+import { getLevel } from '../../data/levels.js';
+import { playSound } from '../../Sound/sound.js'; // Importamos el sistema de sonido
 
 export const game = {
     score: 0,
@@ -95,6 +96,9 @@ export const game = {
             e.stopPropagation();
             if (!this.isPlaying) return;
             
+            // --- SONIDO AL ACERTAR ---
+            playSound('hit'); 
+            
             this.hits++;
             this.shots++;
             this.score += levelConfig.pointsPerHit;
@@ -156,4 +160,3 @@ export const game = {
         }
     }
 };
-
