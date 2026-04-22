@@ -8,10 +8,9 @@ async function fetchNews(query = 'tecnologia', pageSize = 12) {
     const container = document.getElementById('newsContainer');
     
     try {
-        // Mostrar indicador de carga
+
         container.innerHTML = '<p class="loading">Cargando noticias...</p>';
         
-        // Construir URL con parámetros
         const params = new URLSearchParams({
             q: query,
             language: 'es',

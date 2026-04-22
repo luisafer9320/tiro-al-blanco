@@ -36,7 +36,6 @@ export const game = {
         this.startSpawning();
     },
 
-    // Limpiar el canvas manteniendo el botón de pausa
     clearCanvas() {
         const canvas = document.getElementById('gameCanvas');
         if (!canvas) return;
@@ -44,7 +43,6 @@ export const game = {
         canvas.querySelectorAll('.duck').forEach(duck => duck.remove());
     },
 
-    // Iniciar temporizador
     startTimer() {
         this.timerInterval = setInterval(() => {
             this.time--;
@@ -56,7 +54,6 @@ export const game = {
         }, 1000);
     },
 
-    // Iniciar generación de patos
     startSpawning() {
         const levelConfig = getLevel(this.currentLevel);
         this.spawnInterval = setInterval(() => {
@@ -64,7 +61,6 @@ export const game = {
         }, levelConfig.spawnInterval);
     },
 
-    // Crear y mostrar un pato
     spawnDuck() {
         if (!this.isPlaying) return;
 
@@ -91,12 +87,10 @@ export const game = {
 
         canvas.appendChild(duck);
 
-        // Evento de click - acierto
         duck.addEventListener('click', (e) => {
             e.stopPropagation();
             if (!this.isPlaying) return;
 
-            // --- SONIDO AL ACERTAR ---
             playSound('hit');
 
             this.hits++;
@@ -111,7 +105,6 @@ export const game = {
             }, 300);
         });
 
-        // Remover pato al terminar animación
         setTimeout(() => {
             if (duck.parentNode && !duck.classList.contains('hit')) {
                 this.shots++;
@@ -120,15 +113,12 @@ export const game = {
         }, speed * 1000);
     },
 
-    // Terminar el juego
     endGame() {
         this.isPlaying = false;
         this.stopIntervals();
 
-        // Guardar puntuación del jugador
         saveScore(this.currentLevel, this.score);
 
-        // Actualizar Daily Winner
         updateDailyWinnerView();
 
         const accuracy = this.shots > 0 ? Math.round((this.hits / this.shots) * 100) : 0;
@@ -137,25 +127,21 @@ export const game = {
         
     },
 
-    // Pausar el juego
     pauseGame() {
         this.isPlaying = false;
         this.stopIntervals();
     },
 
-    // Reanudar el juego
     resumeGame() {
         this.isPlaying = true;
         this.startTimer();
         this.startSpawning();
     },
 
-    // Reiniciar juego
     restart() {
         this.startGame(this.currentLevel);
     },
 
-    // Detener intervalos
     stopIntervals() {
         if (this.timerInterval) {
             clearInterval(this.timerInterval);

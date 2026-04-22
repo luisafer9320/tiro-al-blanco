@@ -17,9 +17,7 @@ window.addEventListener("unhandledrejection", function (e) {
     window.location.href = "pages/error.html";
 });*/
 
-// Punto de entrada de la aplicación
 import { initUsernameFlow, initViewListeners} from './views.js';
-// IMPORTANTE: Ruta corregida apuntando a la carpeta /Sound/
 import { playSound, playBackgroundMusic, pauseBackgroundMusic, toggleMute } from './Sound/sound.js';
 
 initUsernameFlow();
@@ -66,14 +64,11 @@ async function loadLocationData() {
         }
     }
 }
-// Inicialización centralizada al cargar el DOM
+
 document.addEventListener('DOMContentLoaded', () => {
     initViewListeners();
     loadLocationData();
 
-    // --- LÓGICA DE AUDIO (con comprobación de seguridad) ---
-    
-    // 1. Mute Button
     const muteBtn = document.getElementById('muteBtn');
     if (muteBtn) {
         muteBtn.addEventListener('click', () => {
@@ -85,7 +80,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // 2. Start Game (Inicia música)
     const startBtn = document.getElementById('startBtn');
     if (startBtn) {
         startBtn.addEventListener('click', () => {
@@ -93,7 +87,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // 3. Pause Game
     const pauseBtn = document.getElementById('pauseBtn');
     if (pauseBtn) {
         pauseBtn.addEventListener('click', () => {
@@ -101,7 +94,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // 4. Resume Game
     const resumeBtn = document.getElementById('resumeBtn');
     if (resumeBtn) {
         resumeBtn.addEventListener('click', () => {

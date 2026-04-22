@@ -10,13 +10,11 @@ btnBuscar.addEventListener('click', () => {
 });
 
 async function obtenerClima(ciudad) {
-    // URL de la API: unidades métricas (Celsius) y lenguaje en español
     const url = `https://api.openweathermap.org/data/2.5/weather?q=${ciudad}&appid=${API_KEY}&units=metric&lang=es`;
 
     try {
         const respuesta = await fetch(url);
         
-        // Si la ciudad no existe o hay error
         if (!respuesta.ok) {
             throw new Error('Ciudad no encontrada');
         }
@@ -41,7 +39,6 @@ function obtenerUbicacionActual() {
             const lat = posicion.coords.latitude;
             const lon = posicion.coords.longitude;
             
-            // Llamamos a una nueva función que busque por coordenadas
             buscarPorCoordenadas(lat, lon);
         }, error => {
             console.error("Error al obtener ubicación:", error);
@@ -52,7 +49,6 @@ function obtenerUbicacionActual() {
     }
 }
 
-// 2. Nueva función de búsqueda usando Latitud y Longitud
 async function buscarPorCoordenadas(lat, lon) {
     const url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${API_KEY}&units=metric&lang=es`;
 

@@ -10,14 +10,12 @@ export function initUsernameFlow() {
   const nameForm    = document.getElementById('nameForm');
   const nameError   = document.getElementById('nameError');
 
-  // If already named, go straight to start
   if (getPlayerName()) {
     nameScreen?.classList.remove('active');
     startScreen?.classList.add('active');
     return;
   }
 
-  // Show name screen
   nameScreen?.classList.add('active');
   startScreen?.classList.remove('active');
   nameInput?.focus();
@@ -39,7 +37,6 @@ export function initUsernameFlow() {
   });
 }
 
-// Elementos del DOM cacheados
 const screens = {
     start: document.getElementById('startScreen'),
     game: document.getElementById('gameScreen'),
@@ -65,19 +62,16 @@ const elements = {
 
 let selectedLevel = 1;
 
-// Cambiar pantalla activa
 export function switchScreen(screenKey) {
     Object.values(screens).forEach(s => s?.classList.remove('active'));
     screens[screenKey]?.classList.add('active');
 }
 
-// Actualizar HUD del juego
 export function updateHUD(score, time) {
     if (hud.score) hud.score.textContent = score;
     if (hud.time) hud.time.textContent = time;
 }
 
-// Mostrar pantalla de fin de juego
 export function showGameOver(score, hits, accuracy) {
     switchScreen('gameOver');
     elements.finalScore.textContent = score;
@@ -85,7 +79,6 @@ export function showGameOver(score, hits, accuracy) {
     elements.finalPrecision.textContent = `${accuracy}%`;
 }
 
-// Inicializar todos los eventos de la UI
 export function initViewListeners() {
     // Verificar que los elementos existen
     const startScreen = document.getElementById('startScreen');
@@ -113,13 +106,11 @@ export function initViewListeners() {
         });
     });
 
-    // Botón JUGAR
     elements.startBtn?.addEventListener('click', () => {
         switchScreen('game');
         game.startGame(selectedLevel);
     });
 
-    // Botón PAUSA
     elements.pauseBtn?.addEventListener('click', () => {
         console.log("¡Clic detectado en el botón de pausa!");
         
@@ -131,19 +122,16 @@ export function initViewListeners() {
         }
     });
 
-    // Botón REANUDAR
     elements.resumeBtn?.addEventListener('click', () => {
         game.resumeGame();
         switchScreen('game');
     });
 
-    // Botón SALIR de pausa
     elements.exitPauseBtn?.addEventListener('click', () => {
         game.endGame();
         switchScreen('start');
     });
 
-    // Botón JUGAR DE NUEVO
     elements.restartBtn?.addEventListener('click', () => {
         switchScreen('game');
         game.restart();
