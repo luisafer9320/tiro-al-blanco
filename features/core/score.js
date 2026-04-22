@@ -7,7 +7,6 @@ export function updateDailyWinnerView() {
     const scoreEl = document.getElementById('dailyWinnerScore');
 
     if (!nameEl || !scoreEl) return;
-
     if (!winner) {
         nameEl.textContent = '@Unknown';
         scoreEl.textContent = '0 pts';
