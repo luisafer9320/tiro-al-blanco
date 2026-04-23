@@ -1,5 +1,3 @@
-// Configuración de los 3 niveles del juego
-
 export const levels = [
   {
     level: 1,
